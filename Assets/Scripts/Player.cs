@@ -5,9 +5,11 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public GameObject playerObject;
+    public GameObject[] flock;
     // Start is called before the first frame update
     void Start()
     {
+        FindFlock();
         
     }
 
@@ -15,5 +17,10 @@ public class Player : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void FindFlock()
+    {
+        flock = GameObject.FindGameObjectsWithTag("Flock");
     }
 }
