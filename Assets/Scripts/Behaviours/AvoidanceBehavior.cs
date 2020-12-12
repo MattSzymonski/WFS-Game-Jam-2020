@@ -13,5 +13,6 @@ public class AvoidanceBehavior : IBehavior
         }
 
         Vector3 avoidanceMove = Vector3.forward;
+        return new Vector3();
     }
 }
