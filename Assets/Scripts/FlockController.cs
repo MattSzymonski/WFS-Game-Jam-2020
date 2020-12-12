@@ -13,6 +13,9 @@ public class FlockController : MonoBehaviour
     public float radius = 5.0f;
     public float agentSpeed = 5.0f;
 
+    [Range(0.0f, 5.0f)]
+    public float avoidanceRadiusMultiplier = 0.5f;
+
     // Start is called before the first frame update
     void Start()
     {
