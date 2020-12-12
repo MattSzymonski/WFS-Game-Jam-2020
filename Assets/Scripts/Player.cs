@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         Vector3 direction = target.transform.position - transform.position;
+        transform.forward = direction;
         transform.position += direction.normalized * speed * Time.deltaTime;
     }
 
