@@ -132,7 +132,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5374236313752433914, guid: 54a906c0b2346d746aac4e0822a19866, type: 3}
       propertyPath: m_Name
-      value: FlockAgent (2)
+      value: agent4
       objectReference: {fileID: 0}
     - target: {fileID: 5374236313752433915, guid: 54a906c0b2346d746aac4e0822a19866, type: 3}
       propertyPath: m_RootOrder
@@ -522,8 +522,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1156379711}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.89, y: -59.5, z: 6.81}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 4.84, y: 0, z: 14.99}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -629,7 +629,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1278056208}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.47, y: 6.25, z: 3.08}
+  m_LocalPosition: {x: 0, y: 0, z: 3.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -644,7 +644,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5374236313752433914, guid: 54a906c0b2346d746aac4e0822a19866, type: 3}
       propertyPath: m_Name
-      value: FlockAgent
+      value: agent2
       objectReference: {fileID: 0}
     - target: {fileID: 5374236313752433915, guid: 54a906c0b2346d746aac4e0822a19866, type: 3}
       propertyPath: m_RootOrder
@@ -706,7 +706,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5374236313752433914, guid: 54a906c0b2346d746aac4e0822a19866, type: 3}
       propertyPath: m_Name
-      value: FlockAgent (1)
+      value: agent3
       objectReference: {fileID: 0}
     - target: {fileID: 5374236313752433915, guid: 54a906c0b2346d746aac4e0822a19866, type: 3}
       propertyPath: m_RootOrder
@@ -768,7 +768,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5374236313752433914, guid: 54a906c0b2346d746aac4e0822a19866, type: 3}
       propertyPath: m_Name
-      value: FlockAgent
+      value: agent5
       objectReference: {fileID: 0}
     - target: {fileID: 5374236313752433915, guid: 54a906c0b2346d746aac4e0822a19866, type: 3}
       propertyPath: m_RootOrder
@@ -830,7 +830,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5374236313752433914, guid: 54a906c0b2346d746aac4e0822a19866, type: 3}
       propertyPath: m_Name
-      value: FlockAgent
+      value: agent1
       objectReference: {fileID: 0}
     - target: {fileID: 5374236313752433915, guid: 54a906c0b2346d746aac4e0822a19866, type: 3}
       propertyPath: m_RootOrder

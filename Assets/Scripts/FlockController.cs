@@ -11,6 +11,7 @@ public class FlockController : MonoBehaviour
     Player player;
 
     public float radius = 5.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,16 +24,26 @@ public class FlockController : MonoBehaviour
     {
         HashSet<FlockAgent> difference = new HashSet<FlockAgent>();
         Debug.LogError(agents);
+
+        // Process player
+        ProcessNearby(player.gameObject);
+        // Process each other member of the flock (agent)
         foreach (FlockAgent agent in agents)
         {
-            Tuple<List<Transform>, HashSet<FlockAgent>> nearbyTransformsAgents = GetNearby(agent);
-            difference.UnionWith(nearbyTransformsAgents.Item2);
-
-           // Vector3 move = behavior.CalculateMovement(agent, nearbyTransformsAgents.Item1, this);
-
+            HashSet<FlockAgent> agentsFound = ProcessNearby(agent.gameObject);
+            difference.UnionWith(agentsFound);
         }
+        // Finally expand the set with the newly found agents
         agents.UnionWith(difference);
-        Debug.LogError(agents.Count);
+    }
+
+    HashSet<FlockAgent> ProcessNearby(GameObject source)
+    {
+        Tuple<List<Transform>, HashSet<FlockAgent>> nearbyTransformsAgents = GetNearby(source);
+
+        // Vector3 move = behavior.CalculateMovement(agent, nearbyTransformsAgents.Item1, this);
+
+        return nearbyTransformsAgents.Item2;
     }
 
     void FindFlock()
@@ -42,21 +53,29 @@ public class FlockController : MonoBehaviour
             agents.Add(o.GetComponent<FlockAgent>());
     }
 
-    Tuple<List<Transform>, HashSet<FlockAgent>> GetNearby(FlockAgent agent)
+    Tuple<List<Transform>, HashSet<FlockAgent>> GetNearby(GameObject agent)
     {
         List<Transform> nearbyTransforms = new List<Transform>();
         HashSet<FlockAgent> nearbyAgents = new HashSet<FlockAgent>();
 
         Collider[] nearbyColliders = Physics.OverlapSphere(agent.transform.position, radius);
-        Debug.LogError(nearbyColliders.Length);
+        //Debug.LogError("Colliders found :" + nearbyColliders.Length);
+        foreach (var x in nearbyColliders) Debug.Log(x.ToString());
 
         foreach (var c in nearbyColliders)
         {
             // TODO: potential problem, when del;eting objects from this flock, they will be readded here as it runs on update
             // add tags discarded etc
             // get tags only current player and neutral not discarded
-            nearbyAgents.Add(c.GetComponentInParent<FlockAgent>());
-            nearbyTransforms.Add(c.transform);
+
+
+            // Only add to list if overlaps with agent
+            var collAgent = c.GetComponentInParent<FlockAgent>();
+            if (collAgent)
+            {
+                nearbyTransforms.Add(c.transform);
+                nearbyAgents.Add(collAgent);
+            }
         }
 
         return new Tuple<List<Transform>, HashSet<FlockAgent>>(nearbyTransforms, nearbyAgents);
