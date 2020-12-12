@@ -40,6 +40,11 @@ MonoBehaviour:
   highQualityFiltering:
     m_OverrideState: 0
     m_Value: 0
+  skipIterations:
+    m_OverrideState: 0
+    m_Value: 2
+    min: 0
+    max: 16
   dirtTexture:
     m_OverrideState: 0
     m_Value: {fileID: 0}
@@ -62,17 +67,17 @@ MonoBehaviour:
   active: 1
   m_AdvancedMode: 0
   color:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: {r: 0, g: 0, b: 0, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1
   center:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.25
+    m_Value: 0.301
     min: 0
     max: 1
   smoothness:
@@ -81,7 +86,7 @@ MonoBehaviour:
     min: 0.01
     max: 1
   rounded:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
 --- !u!114 &11400000
 MonoBehaviour:
@@ -93,7 +98,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
-  m_Name: SampleSceneProfile
+  m_Name: SceneVolume
   m_EditorClassIdentifier: 
   components:
   - {fileID: 849379129802519247}
