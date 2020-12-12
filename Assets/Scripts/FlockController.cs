@@ -8,14 +8,15 @@ public class FlockController : MonoBehaviour
     public IBehavior behavior;
     public HashSet<FlockAgent> agents = new HashSet<FlockAgent>();
 
-    Player player;
+    public Player player;
 
     public float radius = 5.0f;
-    public float agentSpeed = 4.0f;
+    public float agentSpeed = 5.0f;
 
     // Start is called before the first frame update
     void Start()
     {
+        behavior = ScriptableObject.CreateInstance("CohesionBehavior") as IBehavior;
         player = gameObject.GetComponent<Player>();
         FindFlock();
     }
@@ -24,7 +25,6 @@ public class FlockController : MonoBehaviour
     void Update()
     {
         HashSet<FlockAgent> difference = new HashSet<FlockAgent>();
-        Debug.LogError(agents);
 
         // Process player
         agents.UnionWith(GetNearby(player.gameObject).Item2);
@@ -42,10 +42,10 @@ public class FlockController : MonoBehaviour
     {
         Tuple<List<Transform>, HashSet<FlockAgent>> nearbyTransformsAgents = GetNearby(source.gameObject);
 
-        //Vector3 move = behavior.CalculateMovement(source, nearbyTransformsAgents.Item1, this);
+        Vector3 move = behavior.CalculateMovement(source, nearbyTransformsAgents.Item1, this);
 
-        Vector3 move = player.transform.position - source.transform.position;
-        move = move.normalized * agentSpeed;
+        //Vector3 move = player.transform.position - source.transform.position;
+        //move = move.normalized * agentSpeed;
         source.Move(move);
         return nearbyTransformsAgents.Item2;
     }
@@ -64,7 +64,6 @@ public class FlockController : MonoBehaviour
 
         Collider[] nearbyColliders = Physics.OverlapSphere(agent.transform.position, radius);
         //Debug.LogError("Colliders found :" + nearbyColliders.Length);
-        foreach (var x in nearbyColliders) Debug.Log(x.ToString());
 
         foreach (var c in nearbyColliders)
         {
@@ -72,6 +71,11 @@ public class FlockController : MonoBehaviour
             // add tags discarded etc
             // get tags only current player and neutral not discarded
 
+            if (c == agent.GetComponent<Collider>())
+            {
+                // if myself, skip
+                continue;
+            }    
 
             // Only add to list if overlaps with agent
             var collAgent = c.GetComponentInParent<FlockAgent>();
@@ -79,6 +83,10 @@ public class FlockController : MonoBehaviour
             {
                 nearbyTransforms.Add(c.transform);
                 nearbyAgents.Add(collAgent);
+            }
+            else if (c.GetComponentInParent<Player>())
+            {
+                nearbyTransforms.Add(c.transform);
             }
         }
 
