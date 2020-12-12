@@ -82,6 +82,7 @@ public class FlockController : MonoBehaviour
 
             // Only add to list if overlaps with agent
             var collAgent = c.GetComponentInParent<FlockAgent>();
+            var creep = c.GetComponentInParent<Creep>();
             if (collAgent)
             {
                 nearbyTransforms.Add(c.transform);
@@ -90,6 +91,12 @@ public class FlockController : MonoBehaviour
             else if (c.GetComponentInParent<Player>())
             {
                 nearbyTransforms.Add(c.transform);
+            }
+            else if (creep) // add this newly found creep as a flock
+            {
+                nearbyTransforms.Add(c.transform);
+                DestroyImmediate(creep);
+                nearbyAgents.Add(c.gameObject.AddComponent<FlockAgent>());
             }
         }
 
