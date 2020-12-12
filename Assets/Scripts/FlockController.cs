@@ -19,7 +19,7 @@ public class FlockController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        behavior = ScriptableObject.CreateInstance("CohesionBehavior") as IBehavior;
+        //behavior = ScriptableObject.CreateInstance("CohesionBehavior") as IBehavior;
         player = gameObject.GetComponent<Player>();
         FindFlock();
     }
@@ -49,6 +49,11 @@ public class FlockController : MonoBehaviour
 
         //Vector3 move = player.transform.position - source.transform.position;
         //move = move.normalized * agentSpeed;
+        if (move.sqrMagnitude > agentSpeed*agentSpeed)
+        {
+            move = move.normalized;
+            move *= agentSpeed;
+        }
         source.Move(move);
         return nearbyTransformsAgents.Item2;
     }
