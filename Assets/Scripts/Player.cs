@@ -57,9 +57,11 @@ public class Player : MonoBehaviour
         currentFlockPenalty = 1.0f;
         // flock set always contains a player so subtract 1
         // simple linear penalty to movement for now
-        currentFlockPenalty -= (flock.agents.Count - 1) * flockPenalty;
-        // cap it?
-        currentFlockPenalty = Mathf.Max(currentFlockPenalty, 0.5f);
+        if (flock.agents.Count != 0)
+        {
+            currentFlockPenalty -= (flock.agents.Count - 1) * flockPenalty;
+            currentFlockPenalty = Mathf.Max(currentFlockPenalty, 0.5f);
+        }
     }
 
     private void Move()
@@ -76,7 +78,7 @@ public class Player : MonoBehaviour
         }
         // adjust movement speed based on flock weight??
         float yVel = rb.velocity.y;
-        rb.velocity = new Vector3(lookDirection.x * currentFlockPenalty, yVel, lookDirection.z * currentFlockPenalty); // will add drag
+        rb.velocity = new Vector3(lookDirection.x * movementSpeed * currentFlockPenalty, yVel, lookDirection.z * movementSpeed * currentFlockPenalty); // will add drag
     }
 
     private void ChangeDirection()

@@ -19,7 +19,7 @@ public class FlockController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //behavior = ScriptableObject.CreateInstance("CohesionBehavior") as IBehavior;
+        behavior = ScriptableObject.CreateInstance("AlignmentBehavior") as IBehavior;
         player = gameObject.GetComponent<Player>();
         FindFlock();
     }
