@@ -11,6 +11,7 @@ public class FlockController : MonoBehaviour
     Player player;
 
     public float radius = 5.0f;
+    public float agentSpeed = 4.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -26,23 +27,26 @@ public class FlockController : MonoBehaviour
         Debug.LogError(agents);
 
         // Process player
-        ProcessNearby(player.gameObject);
+        agents.UnionWith(GetNearby(player.gameObject).Item2);
         // Process each other member of the flock (agent)
         foreach (FlockAgent agent in agents)
         {
-            HashSet<FlockAgent> agentsFound = ProcessNearby(agent.gameObject);
+            HashSet<FlockAgent> agentsFound = ProcessNearby(agent);
             difference.UnionWith(agentsFound);
         }
         // Finally expand the set with the newly found agents
         agents.UnionWith(difference);
     }
 
-    HashSet<FlockAgent> ProcessNearby(GameObject source)
+    HashSet<FlockAgent> ProcessNearby(FlockAgent source)
     {
-        Tuple<List<Transform>, HashSet<FlockAgent>> nearbyTransformsAgents = GetNearby(source);
+        Tuple<List<Transform>, HashSet<FlockAgent>> nearbyTransformsAgents = GetNearby(source.gameObject);
 
-        // Vector3 move = behavior.CalculateMovement(agent, nearbyTransformsAgents.Item1, this);
+        //Vector3 move = behavior.CalculateMovement(source, nearbyTransformsAgents.Item1, this);
 
+        Vector3 move = player.transform.position - source.transform.position;
+        move = move.normalized * agentSpeed;
+        source.Move(move);
         return nearbyTransformsAgents.Item2;
     }
 
