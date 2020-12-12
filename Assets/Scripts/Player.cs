@@ -5,22 +5,20 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public GameObject playerObject;
-    public GameObject[] flock;
+    public GameObject target;
+    [Range(0.0f, 5.0f)]
+    public float speed = 2.0f;
     // Start is called before the first frame update
     void Start()
     {
-        FindFlock();
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Vector3 direction = target.transform.position - transform.position;
+        transform.position += direction.normalized * speed * Time.deltaTime;
     }
 
-    void FindFlock()
-    {
-        flock = GameObject.FindGameObjectsWithTag("Flock");
-    }
 }
