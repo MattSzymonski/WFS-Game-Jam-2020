@@ -78,7 +78,6 @@ public class MainGameManager : MightyGameManager, IMainGameManager
     {
         Debug.Log("Play");
         SpawnCreepsInitial();
-        audioManager.PlaySound("GameStart");
     }
 
     public void GameOver(int winner)
