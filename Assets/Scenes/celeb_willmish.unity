@@ -454,6 +454,10 @@ PrefabInstance:
       propertyPath: movementSpeed
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 8758948406909987500, guid: ffe5f6809f5fcad41ab967f39a8c6a80, type: 3}
+      propertyPath: singleProjectileSpeed
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 8758948406909987501, guid: ffe5f6809f5fcad41ab967f39a8c6a80, type: 3}
       propertyPath: m_RootOrder
       value: 2

@@ -18,7 +18,7 @@ public class FlockAgent : MonoBehaviour
 
     public void Move(Vector3 velocity)
     {
-        transform.forward = velocity; // set rotation
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(velocity, Vector3.up),  Time.deltaTime*5f);
         transform.position += velocity * Time.deltaTime;
     }
 
