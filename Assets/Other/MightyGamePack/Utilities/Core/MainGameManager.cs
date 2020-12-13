@@ -44,23 +44,7 @@ public class MainGameManager : MightyGameManager, IMainGameManager
 
     public void Start()
     {
-        Vector3 position;
-
-        position = spawnerPlayer1.transform.position;
-        GameObject player1 = Instantiate(player1Prefab, position, Quaternion.identity) as GameObject;
-        player1.name = "PlayerOne";
-        player1.GetComponent<Player>().controllerNumber = 0;
-        duelCamera.player1 = player1;
-        player1.GetComponent<Player>().mgm = this;
-        this.player1 = player1;
-
-        position = spawnerPlayer2.transform.position;
-        GameObject player2 = Instantiate(player2Prefab, position, Quaternion.identity) as GameObject;
-        player2.name = "PlayerTwo";
-        player2.GetComponent<Player>().controllerNumber = 1;
-        duelCamera.player2 = player2;
-        player2.GetComponent<Player>().mgm = this;
-        this.player2 = player2;
+        
 
         spawnCreepsTimer = this.timersManager.CreateTimer("SpawnCreepsTimer", creepSpawnInterval, 1f, false, false);
     }
@@ -76,43 +60,8 @@ public class MainGameManager : MightyGameManager, IMainGameManager
     //------------------------------------------------ GAME STATE FUNCTIONS ---------------------------------------------------- (CODE IN THESE FUNCTIONS WILL AUTOMATICALY BE EXECUTED ON GAME STATE CHANGES)
     public void PlayGame()
     {
-        Debug.Log("Play");
-        SpawnCreepsInitial();
-    }
+        UIManager.SetGameResult("");
 
-    public void GameOver(int winner)
-    {
-       
-
-        if (!debugHideUI && gameState == GameState.Playing)
-        {
-            UIManager.GameOver();
-
-            if (winner == 1)
-            {
-                UIManager.SetGameResult("RED CREW WINS!");
-            }
-            if (winner == 2)
-            {
-                UIManager.SetGameResult("BLUE CREW WINS!");
-            }
-            if (winner == 2)
-            {
-                UIManager.SetGameResult("SPLIT!");
-            }
-            audioManager.StopSound("GameStart");
-            audioManager.PlaySound("WinMusic");
-        }
-    }
-
-    public void PauseGame() { }
-
-    public void UnpauseGame() { }
-
-    public void BackToMainMenu() { }
-
-    public void RestartGame()
-    {
         GameObject ccc = GameObject.Find("Creeps");
 
         int ttt = GameObject.Find("Creeps").transform.childCount;
@@ -136,25 +85,93 @@ public class MainGameManager : MightyGameManager, IMainGameManager
         player1Dead = false;
         player2Dead = false;
 
+
+        Debug.Log("Play");
+        SpawnCreepsInitial();
+
+        Vector3 position;
+
+        position = spawnerPlayer1.transform.position;
+        GameObject player1 = Instantiate(player1Prefab, position, Quaternion.identity) as GameObject;
+        player1.name = "PlayerOne";
+        player1.GetComponent<Player>().controllerNumber = 0;
+        duelCamera.player1 = player1;
+        player1.GetComponent<Player>().mgm = this;
+        this.player1 = player1;
+
+        position = spawnerPlayer2.transform.position;
+        GameObject player2 = Instantiate(player2Prefab, position, Quaternion.identity) as GameObject;
+        player2.name = "PlayerTwo";
+        player2.GetComponent<Player>().controllerNumber = 1;
+        duelCamera.player2 = player2;
+        player2.GetComponent<Player>().mgm = this;
+        this.player2 = player2;
+
+    }
+
+    public void GameOver(int winner)
+    {
+        if (!debugHideUI)
+        {
+            UIManager.GameOver();
+
+            if (winner == 1)
+            {
+                Debug.Log("aaaaaaaa1");
+                UIManager.SetGameResult("RED CREW WINS");
+            }
+            if (winner == 2)
+            {
+                Debug.Log("aaaaaaaa2");
+                UIManager.SetGameResult("BLUE CREW WINS");
+            }
+            if (winner == 3)
+            {
+                Debug.Log("aaaaaaaa3");
+                UIManager.SetGameResult("DRAW");
+            }
+            audioManager.StopSound("GameStart");
+            audioManager.PlaySound("WinMusic");
+
+            // SetGameState(GameState.GameOverMenu);
+            player1.transform.position = new Vector3(0, -100, 0);
+            player2.transform.position = new Vector3(0, -100, 0);
+        }
+
+
+    }
+
+    public void PauseGame() { }
+
+    public void UnpauseGame() { }
+
+    public void BackToMainMenu() { }
+
+    public void RestartGame()
+    {
+
+
+      
+
         var players = GameObject.FindGameObjectsWithTag("Player");
         foreach (var player in players)
         {
             if (player.name == "PlayerOne")
             {
                 Vector2 point = Random.insideUnitCircle * 1;
-                player.transform.position = spawnerPlayer1.transform.position + MightyGamePack.MightyUtilites.Vec2ToVec3(point);
+                player.transform.position = spawnerPlayer1.transform.position;
                 player.transform.rotation = new Quaternion(spawnerPlayer1.transform.rotation.x, spawnerPlayer1.transform.rotation.y, spawnerPlayer1.transform.rotation.z, spawnerPlayer1.transform.rotation.w);
             }
             else if (player.name == "PlayerTwo")
             {
                 Vector2 point = Random.insideUnitCircle * 1;
-                player.transform.position = spawnerPlayer2.transform.position + MightyGamePack.MightyUtilites.Vec2ToVec3(point);
+                player.transform.position = spawnerPlayer2.transform.position;
                 player.transform.rotation = new Quaternion(spawnerPlayer2.transform.rotation.x, spawnerPlayer2.transform.rotation.y, spawnerPlayer2.transform.rotation.z, spawnerPlayer2.transform.rotation.w);
             }
         }
 
-        UIManager.SetGameResult("");
-        audioManager.StopSound("WinMusic");
+      
+        //audioManager.StopSound("WinMusic");
     }
 
     public void OpenOptions() { }
@@ -201,7 +218,7 @@ public class MainGameManager : MightyGameManager, IMainGameManager
         {
             if (creeps.Count < creepMaxCount)
             {
-                bool isOk = false;
+                bool isOk = true;
                 Vector2 position = Vector2.zero;
                 while (!isOk)
                 {

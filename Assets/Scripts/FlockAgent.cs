@@ -83,6 +83,7 @@ public class FlockAgent : MonoBehaviour
         {
             if (other.gameObject.tag == "Player2Flock")
             {
+                Camera.main.transform.parent.GetComponent<MightyGamePack.CameraShaker>().ShakeOnce(0.5f, 1f, 1f, 1.25f);
                 other.gameObject.GetComponent<FlockAgent>().Die();
                 this.Die();
             }

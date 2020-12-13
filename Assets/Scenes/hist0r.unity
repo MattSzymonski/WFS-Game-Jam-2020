@@ -1536,6 +1536,14 @@ PrefabInstance:
       propertyPath: gameJamLogo
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3847232349206753755, guid: eb6e1e9f94fcbc5408e03140be5a6ae0, type: 3}
+      propertyPath: transitionTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3847232349206753755, guid: eb6e1e9f94fcbc5408e03140be5a6ae0, type: 3}
+      propertyPath: closeMMBeforeTransitionToG
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3847232349206753756, guid: eb6e1e9f94fcbc5408e03140be5a6ae0, type: 3}
       propertyPath: m_RootOrder
       value: 10
