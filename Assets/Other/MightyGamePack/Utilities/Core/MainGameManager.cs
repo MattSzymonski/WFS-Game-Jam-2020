@@ -49,7 +49,7 @@ public class MainGameManager : MightyGameManager, IMainGameManager
         position = spawnerPlayer1.transform.position;
         GameObject player1 = Instantiate(player1Prefab, position, Quaternion.identity) as GameObject;
         player1.name = "PlayerOne";
-        player1.GetComponent<Player>().controllerNumber = 1;
+        player1.GetComponent<Player>().controllerNumber = 0;
         duelCamera.player1 = player1;
         player1.GetComponent<Player>().mgm = this;
 
@@ -57,7 +57,7 @@ public class MainGameManager : MightyGameManager, IMainGameManager
         position = spawnerPlayer2.transform.position;
         GameObject player2 = Instantiate(player2Prefab, position, Quaternion.identity) as GameObject;
         player2.name = "PlayerTwo";
-        player2.GetComponent<Player>().controllerNumber = 2;
+        player2.GetComponent<Player>().controllerNumber = 1;
         duelCamera.player2 = player2;
         player2.GetComponent<Player>().mgm = this;
 
@@ -92,7 +92,10 @@ public class MainGameManager : MightyGameManager, IMainGameManager
             {
                 UIManager.SetGameResult("BLUE CREW WINS!");
             }
-
+            if (winner == 2)
+            {
+                UIManager.SetGameResult("SPLIT!");
+            }
         }
     }
 

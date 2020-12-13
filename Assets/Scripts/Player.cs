@@ -249,7 +249,8 @@ public class Player : MonoBehaviour
         {
             if (other.gameObject.tag == "Player2")
             {
-
+                mgm.GameOver(3);
+                return;
             }
 
             if (other.gameObject.tag == "Player2Flock")
@@ -263,7 +264,8 @@ public class Player : MonoBehaviour
         {
             if (other.gameObject.tag == "Player2")
             {
-
+                mgm.GameOver(3);
+                return;
             }
 
             if (other.gameObject.tag == "Player1Flock")

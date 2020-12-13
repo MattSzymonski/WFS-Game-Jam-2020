@@ -66,7 +66,7 @@ public class FlockAgent : MonoBehaviour
             velocity *= (velocityMag * (1 + speedUpRatio));
         }
         float randomRotSpeed = UnityEngine.Random.Range(2f, 4f);
-        Debug.Log(Time.time);
+        //Debug.Log(Time.time);
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(velocity, Vector3.up),  Time.deltaTime*randomRotSpeed);
         transform.position += velocity * Time.deltaTime;
     }
