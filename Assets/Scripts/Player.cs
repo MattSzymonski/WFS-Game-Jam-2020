@@ -194,6 +194,7 @@ public class Player : MonoBehaviour
 
     private void ShootAllCars()
     {
+        mgm.audioManager.PlaySound("AccelMulti");
         foreach (FlockAgent agent in flock.agents)
         {
             GameObject agentGO = agent.gameObject;
@@ -206,6 +207,7 @@ public class Player : MonoBehaviour
     }
     private void ShootOneCar()
     {
+        mgm.audioManager.PlayRandomSound(new string[2] { "AccelSingle1", "AccelSingle2" });
         Vector3 cyberShiftDir = new Vector3(Input.GetAxis("Controller" + (controllerNumber + 1) + " Left Stick Horizontal"), 0, -Input.GetAxis("Controller" + (controllerNumber + 1) + " Left Stick Vertical")).normalized;
         // if no members in flock, skipp
         if (flock.agents.Count == 0)

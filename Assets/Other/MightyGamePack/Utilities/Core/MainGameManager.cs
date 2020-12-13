@@ -101,6 +101,8 @@ public class MainGameManager : MightyGameManager, IMainGameManager
             {
                 UIManager.SetGameResult("SPLIT!");
             }
+            audioManager.StopSound("GameStart");
+            audioManager.PlaySound("WinMusic");
         }
     }
 
@@ -141,6 +143,7 @@ public class MainGameManager : MightyGameManager, IMainGameManager
         }
 
         UIManager.SetGameResult("");
+        audioManager.StopSound("WinMusic");
     }
 
     public void OpenOptions() { }

@@ -10,6 +10,9 @@
 **/[Ll]ogs/
 **/[Mm]emoryCaptures/
 
+# Explicitly ignore InputManager changes
+/[Pp]rojectSettings/InputManager.asset
+
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
 
