@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MightyGamePack;
+
 
 public class FlockAgent : MonoBehaviour
 {
@@ -26,17 +28,21 @@ public class FlockAgent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isSpedUp || isSlowedDown)
+        if(MainGameManager.mainGameManager.gameState != GameState.Playing)
         {
-            currTime += Time.deltaTime;
-            if (currTime >= speedModTime)
+            if (isSpedUp || isSlowedDown)
             {
-                currTime = 0f;
-                isSpedUp = false;
-                isSlowedDown = false;
+                currTime += Time.deltaTime;
+                if (currTime >= speedModTime)
+                {
+                    currTime = 0f;
+                    isSpedUp = false;
+                    isSlowedDown = false;
+                }
             }
+
         }
-        
+
     }
 
     public void Move(Vector3 velocity)

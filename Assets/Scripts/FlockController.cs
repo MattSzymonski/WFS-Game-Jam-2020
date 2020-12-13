@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using MightyGamePack;
 
 public class FlockController : MonoBehaviour
 {
@@ -27,20 +28,23 @@ public class FlockController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HashSet<FlockAgent> difference = new HashSet<FlockAgent>();
-
-        // Process player
-        agents.UnionWith(GetNearby(player.gameObject).Item2);
-        // Process each other member of the flock (agent)
-        foreach (FlockAgent agent in agents)
+        if (MainGameManager.mainGameManager.gameState != GameState.Playing)
         {
-            if (!agent.isValid)
-                continue;
-            HashSet<FlockAgent> agentsFound = ProcessNearby(agent);
-            difference.UnionWith(agentsFound);
+            HashSet<FlockAgent> difference = new HashSet<FlockAgent>();
+
+            // Process player
+            agents.UnionWith(GetNearby(player.gameObject).Item2);
+            // Process each other member of the flock (agent)
+            foreach (FlockAgent agent in agents)
+            {
+                if (!agent.isValid)
+                    continue;
+                HashSet<FlockAgent> agentsFound = ProcessNearby(agent);
+                difference.UnionWith(agentsFound);
+            }
+            // Finally expand the set with the newly found agents
+            agents.UnionWith(difference);
         }
-        // Finally expand the set with the newly found agents
-        agents.UnionWith(difference);
     }
 
     HashSet<FlockAgent> ProcessNearby(FlockAgent source)

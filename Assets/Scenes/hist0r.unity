@@ -710,7 +710,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: GameStart
     clip: {fileID: 8300000, guid: cc96b148807b9994c998380ffbf81fc4, type: 3}
-    volume: 0.2
+    volume: 0.05
     pitch: 1
     playOnAwake: 0
     loop: 0

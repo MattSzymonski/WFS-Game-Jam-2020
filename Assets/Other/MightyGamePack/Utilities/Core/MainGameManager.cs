@@ -114,14 +114,12 @@ public class MainGameManager : MightyGameManager, IMainGameManager
 
     public void RestartGame()
     {
-
-
         GameObject ccc = GameObject.Find("Creeps");
 
         int ttt = GameObject.Find("Creeps").transform.childCount;
         for (int i = ttt - 1; i >= 0; --i)
         {
-            Destroy(ccc.transform.GetChild(i));
+            Destroy(ccc.transform.GetChild(i).gameObject);
         }
 
 

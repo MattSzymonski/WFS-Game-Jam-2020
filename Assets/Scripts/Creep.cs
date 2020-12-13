@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MightyGamePack;
 
 public class Creep : MonoBehaviour
 {
@@ -12,19 +13,23 @@ public class Creep : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Most of the time move forward
-        Vector3 newVector = transform.forward;
-        // sometimes turn right or left
-        int rand = Random.Range(0, 10);
-        if (rand > 8)
+        if (MainGameManager.mainGameManager.gameState != GameState.Playing)
         {
-            // turn left
-            transform.rotation *= Quaternion.Euler(Vector3.up * radialSpeed);
-        } else if (rand > 6)
-        {
-            transform.rotation *= Quaternion.Euler(Vector3.up * radialSpeed);
+            // Most of the time move forward
+            Vector3 newVector = transform.forward;
+            // sometimes turn right or left
+            int rand = Random.Range(0, 10);
+            if (rand > 8)
+            {
+                // turn left
+                transform.rotation *= Quaternion.Euler(Vector3.up * radialSpeed);
+            }
+            else if (rand > 6)
+            {
+                transform.rotation *= Quaternion.Euler(Vector3.up * radialSpeed);
+            }
+            transform.position += newVector * Time.deltaTime * speed;
         }
-        transform.position += newVector * Time.deltaTime * speed;
     }
 
 
