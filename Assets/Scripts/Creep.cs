@@ -13,7 +13,7 @@ public class Creep : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (MainGameManager.mainGameManager.gameState != GameState.Playing)
+        if (MainGameManager.mainGameManager.gameState == GameState.Playing)
         {
             // Most of the time move forward
             Vector3 newVector = transform.forward;
