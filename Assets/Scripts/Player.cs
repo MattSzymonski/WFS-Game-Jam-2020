@@ -154,7 +154,10 @@ public class Player : MonoBehaviour
             //Debug.Log("Horizontal " + Input.GetAxis("Controller" + controllerNumber + " Left Stick Horizontal"));
             //Debug.Log("Vertical " + Input.GetAxis("Controller" + controllerNumber + " Left Stick Vertical"));
             Vector3 cyberShiftDir = new Vector3(Input.GetAxis("Controller" + (controllerNumber + 1) + " Left Stick Horizontal"), 0, -Input.GetAxis("Controller" + (controllerNumber + 1) + " Left Stick Vertical")).normalized;
-            selected = flock.getFurthestInDirection(cyberShiftDir);
+            if (flock.agents.Count == 0)
+                selected = gameObject;
+            else
+                selected = flock.getFurthestInDirection(cyberShiftDir);
             DebugExtension.DebugArrow(transform.position, cyberShiftDir * 10, Color.blue);
             //Debug.Log(cyberShiftDir);
             if(Input.GetAxis("Controller" + (controllerNumber + 1) + " Triggers") == -1) // Left trigger pressed
