@@ -1554,7 +1554,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3847232349206753757, guid: eb6e1e9f94fcbc5408e03140be5a6ae0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3847232349290740956, guid: eb6e1e9f94fcbc5408e03140be5a6ae0, type: 3}
       propertyPath: m_FontData.m_Font
