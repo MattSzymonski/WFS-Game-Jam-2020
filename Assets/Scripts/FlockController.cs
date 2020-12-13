@@ -22,7 +22,7 @@ public class FlockController : MonoBehaviour
     {
         //behavior = ScriptableObject.CreateInstance("AlignmentBehavior") as IBehavior;
         player = gameObject.GetComponent<Player>();
-        FindFlock();
+        //FindFlock();
     }
 
     // Update is called once per frame
@@ -99,10 +99,11 @@ public class FlockController : MonoBehaviour
             {
                 nearbyTransforms.Add(c.transform);
             }
-            else if (creep) // add this newly found creep as a flock
+            else if (creep && c.CompareTag(gameObject.tag)) // add this newly found creep as a flock
             {
                 nearbyTransforms.Add(c.transform);
-                DestroyImmediate(creep);
+                Destroy(creep);
+                c.tag = gameObject.tag + "Flock";
                 nearbyAgents.Add(c.gameObject.AddComponent<FlockAgent>());
             }
         }

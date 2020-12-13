@@ -15,9 +15,10 @@ GameObject:
   - component: {fileID: 982277589}
   - component: {fileID: -6049689940254466563}
   - component: {fileID: 8398861251905401972}
+  - component: {fileID: 8758948407539382135}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,8 +52,9 @@ MonoBehaviour:
   useMouseAndKeyboardInput: 0
   useGamePadInput: 1
   controllerNumber: 0
-  movementSpeed: 5
+  movementSpeed: 20
   movementSmoothing: 0.05
+  flockPenalty: 0.05
   mouseTargetLayerName: 
   mouseRayGizmo: 0
   somethinglol: 1
@@ -117,9 +119,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a1a48d4d221b5b48824f3144d2d8851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  behavior: {fileID: 0}
+  behavior: {fileID: 11400000, guid: 143c684f10fc35e4e80aa91d1c4a4a5b, type: 2}
+  player: {fileID: 0}
   radius: 5
   agentSpeed: 4
+  driveFactor: 10
+  avoidanceRadiusMultiplier: 0.5
 --- !u!65 &-6049689940254466563
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -128,7 +133,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8758948406909987489}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -149,3 +154,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8758948407539382135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8758948406909987489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ef320a7cd1160b45b33b4125b9f09bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particles: {fileID: 0}
