@@ -176,7 +176,7 @@ public class Player : MonoBehaviour
         {
             
             // If right trigger, Fire single car
-            //Debug.Log(Input.GetAxis("Controller" + controllerNumber + " Triggers"));
+            Debug.Log(Input.GetAxis("Controller" + (controllerNumber+1) + " Triggers"));
             if(Input.GetAxis("Controller" + (controllerNumber + 1) + " Triggers") == 1) // Right trigger pressed
             {
                 lastTriggerPress = 1;

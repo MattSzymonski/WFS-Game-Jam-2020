@@ -53,12 +53,12 @@ MonoBehaviour:
   useMouseAndKeyboardInput: 0
   useGamePadInput: 1
   controllerNumber: 0
-  movementSpeed: 9
+  movementSpeed: 11
   movementSmoothing: 0.05
   flockPenalty: 0.05
   mouseTargetLayerName: 
   mouseRayGizmo: 0
-  singleProjectileSpeed: 13
+  singleProjectileSpeed: 15
   somethinglol: 1
   particles: {fileID: 0}
 --- !u!33 &1172402295715326070
@@ -125,8 +125,8 @@ MonoBehaviour:
   behavior: {fileID: 11400000, guid: 143c684f10fc35e4e80aa91d1c4a4a5b, type: 2}
   player: {fileID: 0}
   radius: 6
-  agentSpeed: 9
-  driveFactor: 10
+  agentSpeed: 11
+  driveFactor: 15
   avoidanceRadiusMultiplier: 0.5
 --- !u!65 &5026038672466763561
 BoxCollider:
