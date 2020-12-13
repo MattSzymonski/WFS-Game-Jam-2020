@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: floor
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_ShaderKeywords: _NORMALMAP _OCCLUSIONMAP _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+  m_ShaderKeywords: _METALLICSPECGLOSSMAP _NORMALMAP _OCCLUSIONMAP _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -29,11 +29,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 5498c2aff5f5f1142b1bc64f1fb6c430, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Texture: {fileID: 2800000, guid: 80dcfbdc4a7b39142b69ede403e2b84c, type: 3}
+        m_Scale: {x: 1.2, y: 1.2}
+        m_Offset: {x: 0, y: 0.48}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: a78aa0a6bced69f4eb30ab82e922bee9, type: 3}
+        m_Texture: {fileID: 2800000, guid: 13749ab762cc54e48980f26f7ede2108, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Control:
@@ -69,9 +69,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 5498c2aff5f5f1142b1bc64f1fb6c430, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Texture: {fileID: 2800000, guid: 80dcfbdc4a7b39142b69ede403e2b84c, type: 3}
+        m_Scale: {x: 1.2, y: 1.2}
+        m_Offset: {x: 0, y: 0.48}
     - _Mask0:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -93,7 +93,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: c6120b8f8c0a0e0458ead3f609439a85, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NORMAL_MAP:
@@ -121,7 +121,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 1, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: 5498c2aff5f5f1142b1bc64f1fb6c430, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2a03c9ad7d0009a4e991310e23a5a8b6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
@@ -205,7 +205,7 @@ Material:
     - _ReceiveShadows: 1
     - _SPECULAR_IOR: 1.5
     - _SPECULAR_ROUGHNESS: 0
-    - _Smoothness: 0.362
+    - _Smoothness: 0.415
     - _Smoothness0: 0.5
     - _Smoothness1: 0.5
     - _Smoothness2: 0.5

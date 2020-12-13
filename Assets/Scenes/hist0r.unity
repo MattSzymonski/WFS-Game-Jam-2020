@@ -588,14 +588,14 @@ MonoBehaviour:
   player1Dead: 0
   player2Dead: 0
   duelCamera: {fileID: 1580687219}
-  player1Prefab: {fileID: 0}
-  player2Prefab: {fileID: 0}
+  player1Prefab: {fileID: 3491708283586195840, guid: 96f5cc57278e9ec4f80e752f88d844d4, type: 3}
+  player2Prefab: {fileID: 1172402295715326069, guid: 93b192e116bab114292ed83dbe498d66, type: 3}
   spawnerPlayer1: {fileID: 1688361610}
   spawnerPlayer2: {fileID: 857242106}
   spawnerRadius: 1
-  otherCars: []
-  otherCarsPrefab: {fileID: 0}
-  spawnOtherCarsTimer:
+  creeps: []
+  creepPrefab: {fileID: 6798551620824369492, guid: 268670dbf01e0e944861391bed84b718, type: 3}
+  spawnCreepsTimer:
     name: 
     speed: 0
     currentTime: 0
@@ -604,6 +604,10 @@ MonoBehaviour:
     stopped: 0
     finished: 0
   mapBorders: {x: -100, y: 100, z: -100, w: 100}
+  creepMaxCount: 30
+  minDistanceFromPlayer: 10
+  creepSpawnInterval: 1
+  initialCreepsNumber: 10
 --- !u!4 &835032501
 Transform:
   m_ObjectHideFlags: 0
@@ -1394,7 +1398,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 0}
+  sharedProfile: {fileID: 11400000, guid: 10fc4df2da32a41aaa32d77bc913491c, type: 2}
 --- !u!4 &3499431861533127370
 Transform:
   m_ObjectHideFlags: 0

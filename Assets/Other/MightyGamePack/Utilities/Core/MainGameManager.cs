@@ -22,11 +22,19 @@ public class MainGameManager : MightyGameManager, IMainGameManager
     public GameObject spawnerPlayer2;
     public float spawnerRadius = 1;
 
-    public List<Object> otherCars;
-    public GameObject otherCarsPrefab;
-    public MightyGamePack.MightyTimer spawnOtherCarsTimer;
+    public List<Creep> creeps;
+    public GameObject creepPrefab;
+    public MightyGamePack.MightyTimer spawnCreepsTimer;
 
     public Vector4 mapBorders;
+
+
+
+    public int creepMaxCount = 30;
+    public float minDistanceFromPlayer = 10f;
+    private List<Transform> playerPositions;
+    public float creepSpawnInterval = 1f;
+    public int initialCreepsNumber = 10;
 
     public void Awake()
     {
@@ -41,26 +49,34 @@ public class MainGameManager : MightyGameManager, IMainGameManager
         position = spawnerPlayer1.transform.position;
         GameObject player1 = Instantiate(player1Prefab, position, Quaternion.identity) as GameObject;
         player1.name = "PlayerOne";
-        //player1.GetComponent<PlayerMovement>().playerNumber = 1;
+        player1.GetComponent<Player>().controllerNumber = 1;
         duelCamera.player1 = player1;
+        player1.GetComponent<Player>().mgm = this;
+
 
         position = spawnerPlayer2.transform.position;
         GameObject player2 = Instantiate(player2Prefab, position, Quaternion.identity) as GameObject;
         player2.name = "PlayerTwo";
-        //player2.GetComponent<PlayerMovement>().playerNumber = 2;
+        player2.GetComponent<Player>().controllerNumber = 2;
         duelCamera.player2 = player2;
+        player2.GetComponent<Player>().mgm = this;
+
     }
 
     public void Update()
     {
         if (gameState == GameState.Playing)
         {
-            SpawnOtherCars();
+            SpawnCreeps();
         }
     }
 
     //------------------------------------------------ GAME STATE FUNCTIONS ---------------------------------------------------- (CODE IN THESE FUNCTIONS WILL AUTOMATICALY BE EXECUTED ON GAME STATE CHANGES)
-    public void PlayGame() { Debug.Log("Play"); }
+    public void PlayGame()
+    {
+        Debug.Log("Play");
+        SpawnCreepsInitial();
+    }
 
     public void GameOver(int winner)
     {
@@ -88,13 +104,13 @@ public class MainGameManager : MightyGameManager, IMainGameManager
 
     public void RestartGame()
     {
-        for (int i = otherCars.Count - 1; i >= 0; --i)
+        for (int i = creeps.Count - 1; i >= 0; --i)
         {
-            if (otherCars[i])
+            if (creeps[i])
             {
-               // Destroy(otherCars[i].gameObject);
+               // Destroy(creeps[i].gameObject);
             }
-            otherCars.RemoveAt(i);
+            creeps.RemoveAt(i);
         }
         player1Dead = false;
         player2Dead = false;
@@ -133,27 +149,52 @@ public class MainGameManager : MightyGameManager, IMainGameManager
     //--------------------------------------------------- OTHER FUNCTIONS ------------------------------------------------------
 
 
-    void SpawnOtherCars()
+    void SpawnCreepsInitial()
+    {
+        for (int i = 0; i < initialCreepsNumber; i++)
+        {
+            bool isOk = false;
+            Vector2 position = Vector2.zero;
+            while (!isOk)
+            {
+                position = new Vector2(Random.Range(mapBorders.x, mapBorders.y), Random.Range(mapBorders.z, mapBorders.w));
+                if (Vector3.Distance(new Vector3(position.x, 0f, position.y), spawnerPlayer1.transform.position) > minDistanceFromPlayer && Vector3.Distance(new Vector3(position.x, 0f, position.y), spawnerPlayer2.transform.position) > minDistanceFromPlayer)
+                    isOk = true;
+            }
+            GameObject newCreep = Instantiate(creepPrefab, new Vector3(position.x, 0.0f, position.y), Quaternion.Euler(0.0f, Random.Range(0.0f, 360.0f), 0.0f)) as GameObject;
+            newCreep.transform.parent = GameObject.Find("Creeps").transform;
+            newCreep.name = "Creep_" + creeps.Count.ToString();
+            creeps.Add(newCreep.GetComponent<Creep>());
+        }
+    }
+
+
+    void SpawnCreeps()
     { 
-        spawnOtherCarsTimer = this.timersManager.CreateTimer("SpawnOtherCarsTimer", 1f, 1f, false, false);
+        spawnCreepsTimer = this.timersManager.CreateTimer("SpawnCreepsTimer", creepSpawnInterval, 1f, false, false);
         //myTimer.PlayTimer();
 
-        if (spawnOtherCarsTimer.finished)
+        if (spawnCreepsTimer.finished)
         {
-            Vector2 position = new Vector2(Random.Range(mapBorders.x, mapBorders.y), Random.Range(mapBorders.z, mapBorders.w));
+            if (creeps.Count < creepMaxCount)
+            {
+                bool isOk = false;
+                Vector2 position = Vector2.zero;
+                while (!isOk)
+                {
+                    position = new Vector2(Random.Range(mapBorders.x, mapBorders.y), Random.Range(mapBorders.z, mapBorders.w));
+                    if (Vector3.Distance(new Vector3(position.x, 0f, position.y), player1.transform.position) > minDistanceFromPlayer && Vector3.Distance(new Vector3(position.x, 0f, position.y), player2.transform.position) > minDistanceFromPlayer)
+                        isOk = true;
+                }
+                GameObject newCreep = Instantiate(creepPrefab, new Vector3(position.x, 0.0f, position.y), Quaternion.Euler(0.0f, Random.Range(0.0f, 360.0f), 0.0f)) as GameObject;
+                newCreep.transform.parent = GameObject.Find("Creeps").transform;
+                newCreep.name = "Creep_" + creeps.Count.ToString();
+                creeps.Add(newCreep.GetComponent<Creep>());
 
-            GameObject newOtherCar = Instantiate(otherCarsPrefab, new Vector3(position.x, 0, position.y), Quaternion.Euler(0.0f, Random.Range(0.0f, 360.0f), 0.0f)) as GameObject;
-            newOtherCar.name = "OtherCar" + otherCars.Count.ToString();
-            //otherCars.GetComponent<otherCar>().owner = 1;
-            newOtherCar.transform.parent = GameObject.Find("OtherCars").transform;
-            //otherCars.Add(otherCars.GetComponent<OtherCars>());
-
-            particleEffectsManager.SpawnParticleEffect(newOtherCar.transform.position, Quaternion.identity, 3, 0.0f, "SpawnNewCar");
-
-
-
-
-            spawnOtherCarsTimer.RestartTimer();
+                particleEffectsManager.SpawnParticleEffect(newCreep.transform.position, Quaternion.identity, 3, 0.0f, "SpawnNewCar");
+                spawnCreepsTimer.RestartTimer();
+            }
+          
         } 
     }
 

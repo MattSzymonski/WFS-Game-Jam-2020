@@ -6,9 +6,11 @@ using NaughtyAttributes;
 
 public class Player : MonoBehaviour
 {
+
+    public MainGameManager mgm;
+
     Rigidbody rb;
     FlockController flock;
-
     [Header("Movement")]
     public bool useMouseAndKeyboardInput = false; // TODO: keyboard movement might even be not possible :(?
     public bool useGamePadInput = true;
@@ -40,6 +42,13 @@ public class Player : MonoBehaviour
 
     //gizmo stuff
     private Vector3 furthestFlockGizmo;
+
+
+    public ParticleSystem particles;
+    private bool readyToDie = false;
+
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -55,6 +64,9 @@ public class Player : MonoBehaviour
         Move();
         Rotation(); // this will be used for finding a direction for the CYBERPUNK MIND SWITCH LOL
         Skills();
+
+        if (readyToDie)
+            Die();
     }
 
     private void AdjustSpeed()
@@ -227,4 +239,108 @@ public class Player : MonoBehaviour
         //Gizmos.matrix = Matrix4x4.TRS(shoutArea.transform.position, transform.rotation, Vector3.one);
         //Gizmos.DrawWireCube(Vector3.zero, transform.localScale * 8);
     }
+
+
+
+
+    private void OnTriggerEnter(Collider other) // can add more sophisticated collisions?
+    {
+        if (gameObject.tag == "Player1")
+        {
+            if (other.gameObject.tag == "Player2")
+            {
+
+            }
+
+            if (other.gameObject.tag == "Player2Flock")
+            {
+                Die();
+                mgm.GameOver(2);
+            }
+        }
+
+        if (gameObject.tag == "Player2")
+        {
+            if (other.gameObject.tag == "Player2")
+            {
+
+            }
+
+            if (other.gameObject.tag == "Player1Flock")
+            {
+                Die();
+                mgm.GameOver(1);
+            }
+        }
+
+     
+        //if (gameObject.tag == "Player1Flock")
+        //{
+        //    if (gameObject.tag == "Player2Flock")
+        //    {
+
+        //    }
+        //}
+
+
+        //string tag = gameObject.tag;
+        //string otherTag = other.gameObject.tag;
+        //if (tag != otherTag) // if the tags differ, we have a collision
+        //{
+        //    //Debug.LogError("Tag: " + tag + " Other: " + otherTag);
+        //    // if they belong to the same tag group -> player/playerFlock ignore
+        //    if (tag.Length > otherTag.Length)
+        //        if (tag.StartsWith(otherTag))
+        //            return;
+        //        else if (tag.Length < otherTag.Length)
+        //            if (otherTag.StartsWith(tag))
+        //                return;
+
+        //    if (readyToDie)
+        //        return;
+        //    // for now don't care about creeps being reduced
+        //    //if (tag == "Creep")
+        //    bool isFlock = tag.Contains("Flock");
+        //    bool isCreep = tag.Contains("Creep");
+        //    if (isFlock || isCreep)
+        //    {
+        //        //Debug.LogError("EXPLOSION " + gameObject.ToString() + " other " + other.gameObject.ToString());
+        //        // spawn particles
+        //        GameObject particles = Instantiate(gameObject, new Vector3(transform.position.x, 0.0f, transform.position.y), Quaternion.Euler(0.0f, Random.Range(0.0f, 360.0f), 0.0f)) as GameObject;
+        //        particles.transform.parent = GameObject.Find("ExplosionParticles").transform;
+
+        //        readyToDie = true;
+
+        //        Player p = other.GetComponent<Player>();
+
+        //        if (p != null)
+        //        {
+        //            p.readyToDie = true;
+        //        }  
+
+        //        other.GetComponent<Player>().readyToDie = true;
+        //    }
+        //}
+    }
+
+    private void Die()
+    {
+        var flock = GetComponent<FlockAgent>(); // invalidate it
+        if (flock)
+            flock.isValid = false;
+        // remove the object if belongs to the player
+        GameObject.Destroy(gameObject, 0.2f);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 }

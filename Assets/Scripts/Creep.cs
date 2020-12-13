@@ -31,4 +31,38 @@ public class Creep : MonoBehaviour
         }
         transform.position += newVector * Time.deltaTime * speed;
     }
+
+
+
+    private void OnTriggerEnter(Collider other) // can add more sophisticated collisions?
+    {
+        if (gameObject.tag == "Player1Flock")
+        {
+            if (other.gameObject.tag == "Player2Flock")
+            {
+                other.gameObject.GetComponent<Creep>().Die();
+                this.Die();
+            }
+        }
+
+        //if (gameObject.tag == "Player2Flock")
+        //{
+        //    if (other.gameObject.tag == "Player1Flock")
+        //    {
+        //        other.gameObject.GetComponent<Creep>().Die();
+        //        this.Die();
+        //    }
+        //}
+    }
+
+    private void Die()
+    {
+        var flock = GetComponent<FlockAgent>(); // invalidate it
+        if (flock)
+            flock.isValid = false;
+        // remove the object if belongs to the player
+        GameObject.Destroy(gameObject, 0.2f);
+    }
+
+
 }
