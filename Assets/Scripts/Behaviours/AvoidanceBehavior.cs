@@ -8,6 +8,7 @@ public class AvoidanceBehavior : IBehavior
 {
     public override Vector3 CalculateMovement(FlockAgent agent, List<Transform> nearby, FlockController controller)
     {
+        /*
         // if no neighbours, follow Christ
         if (nearby.Count == 0)
         {
@@ -21,7 +22,7 @@ public class AvoidanceBehavior : IBehavior
         float SquareAvoidanceRadius = controller.radius * controller.avoidanceRadiusMultiplier * controller.avoidanceRadiusMultiplier;
         foreach (Transform neighbor in nearby)
         {
-            if (Vector3.SqrMagnitude(neighbor.position - agent.transform.position) < SquareAvoidanceRadius)
+            if (Vector3.SqrMagnitude(neighbor.position - agent.transform.position) < 100 * SquareAvoidanceRadius)
             {
                 ++numAvoid;
                 avoidanceMove += (Vector3) (agent.transform.position - neighbor.position);
@@ -30,6 +31,10 @@ public class AvoidanceBehavior : IBehavior
 
         if (numAvoid > 0)
             avoidanceMove /= numAvoid;
+
+        Debug.LogError("AVOIDANCE : " + avoidanceMove);
         return avoidanceMove;
+        */
+        return Vector3.zero;
     }
 }

@@ -7,6 +7,10 @@ TagManager:
   - Flock
   - Bullet
   - Creep
+  - Player1Flock
+  - Player1
+  - Player2Flock
+  - Player2
   layers:
   - Default
   - TransparentFX

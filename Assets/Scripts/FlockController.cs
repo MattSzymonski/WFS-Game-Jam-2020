@@ -5,72 +5,75 @@ using UnityEngine;
 
 public class FlockController : MonoBehaviour
 {
-    public IBehavior behavior;
-    public HashSet<FlockAgent> agents = new HashSet<FlockAgent>();
-
     public Player player;
 
     public float radius = 5.0f;
-    public float agentSpeed = 5.0f;
 
-    public float driveFactor = 10f;
-    [Range(0.0f, 5.0f)]
-    public float avoidanceRadiusMultiplier = 0.5f;
+    private GlobalFlocks globalFlockContainer;
+    private HashSet<GameObject> agents = new HashSet<GameObject>();
+    private string thisTag;
 
     // Start is called before the first frame update
     void Start()
     {
         //behavior = ScriptableObject.CreateInstance("AlignmentBehavior") as IBehavior;
         player = gameObject.GetComponent<Player>();
+        globalFlockContainer = GameObject.FindObjectOfType<GlobalFlocks>();
+        thisTag = "Player1Flock";
         FindFlock();
+        globalFlockContainer.AddFlock(thisTag, agents);
+        globalFlockContainer.AddPlayerTransform(thisTag.Replace("Flock", ""), player.transform);
     }
 
     // Update is called once per frame
     void Update()
     {
-        HashSet<FlockAgent> difference = new HashSet<FlockAgent>();
+        HashSet<GameObject> difference = new HashSet<GameObject>();
 
-        // Process player
+        // Process player //TODO: with Celeb fix no more in the list, stored explicitly in the global object hashmaps
         agents.UnionWith(GetNearby(player.gameObject).Item2);
         // Process each other member of the flock (agent)
-        foreach (FlockAgent agent in agents)
+        foreach (GameObject agent in agents)
         {
-            HashSet<FlockAgent> agentsFound = ProcessNearby(agent);
+            HashSet<GameObject> agentsFound = ProcessNearby(agent);
             difference.UnionWith(agentsFound);
         }
         // Finally expand the set with the newly found agents
         agents.UnionWith(difference);
+        globalFlockContainer.UpdateFlock(thisTag, agents); // TODO: change if using different tags for player and their flock
+        globalFlockContainer.UpdatePlayerTransform(thisTag.Replace("Flock", ""), player.transform);
     }
 
-    HashSet<FlockAgent> ProcessNearby(FlockAgent source)
+    HashSet<GameObject> ProcessNearby(GameObject source)
     {
-        Tuple<List<Transform>, HashSet<FlockAgent>> nearbyTransformsAgents = GetNearby(source.gameObject);
+        Tuple<List<Transform>, HashSet<GameObject>> nearbyTransformsAgents = GetNearby(source);
 
-        Vector3 move = behavior.CalculateMovement(source, nearbyTransformsAgents.Item1, this);
+        //Vector3 move = behavior.CalculateMovement(source, nearbyTransformsAgents.Item1, this);
 
-        //Vector3 move = player.transform.position - source.transform.position;
-        //move = move.normalized * agentSpeed;
-        move *= driveFactor;
-        if (move.sqrMagnitude > agentSpeed*agentSpeed)
-        {
-            move = move.normalized;
-            move *= agentSpeed;
-        }
-        source.Move(move);
+        ////Vector3 move = player.transform.position - source.transform.position;
+        ////move = move.normalized * agentSpeed;
+        //move *= driveFactor;
+        //if (move.sqrMagnitude > agentSpeed*agentSpeed)
+        //{
+        //    move = move.normalized;
+        //    move *= agentSpeed;
+        //}
+        //source.Move(move);
         return nearbyTransformsAgents.Item2;
     }
 
     void FindFlock()
     {
-        GameObject[] flock = GameObject.FindGameObjectsWithTag("Flock");
+        // TODO: add only to this players tag
+        GameObject[] flock = GameObject.FindGameObjectsWithTag(thisTag);
         foreach (var o in flock)
-            agents.Add(o.GetComponent<FlockAgent>());
+            agents.Add(o);
     }
 
-    Tuple<List<Transform>, HashSet<FlockAgent>> GetNearby(GameObject agent)
+    Tuple<List<Transform>, HashSet<GameObject>> GetNearby(GameObject agent)
     {
         List<Transform> nearbyTransforms = new List<Transform>();
-        HashSet<FlockAgent> nearbyAgents = new HashSet<FlockAgent>();
+        HashSet<GameObject> nearbyAgents = new HashSet<GameObject>();
 
         Collider[] nearbyColliders = Physics.OverlapSphere(agent.transform.position, radius);
         //Debug.LogError("Colliders found :" + nearbyColliders.Length);
@@ -88,25 +91,26 @@ public class FlockController : MonoBehaviour
             }    
 
             // Only add to list if overlaps with agent
-            var collAgent = c.GetComponentInParent<FlockAgent>();
+            var collAgent = c.GetComponentInParent<AlternativeFlock>();
             var creep = c.GetComponentInParent<Creep>();
             if (collAgent)
             {
                 nearbyTransforms.Add(c.transform);
-                nearbyAgents.Add(collAgent);
+                nearbyAgents.Add(collAgent.gameObject);
             }
-            else if (c.GetComponentInParent<Player>())
-            {
-                nearbyTransforms.Add(c.transform);
-            }
+            //else if (c.GetComponentInParent<Player>())
+            //{
+            //    nearbyTransforms.Add(c.transform);
+            //}
             else if (creep) // add this newly found creep as a flock
             {
                 nearbyTransforms.Add(c.transform);
                 DestroyImmediate(creep);
-                nearbyAgents.Add(c.gameObject.AddComponent<FlockAgent>());
+                c.tag = thisTag;
+                nearbyAgents.Add(c.gameObject.AddComponent<AlternativeFlock>().gameObject);
             }
         }
 
-        return new Tuple<List<Transform>, HashSet<FlockAgent>>(nearbyTransforms, nearbyAgents);
+        return new Tuple<List<Transform>, HashSet<GameObject>>(nearbyTransforms, nearbyAgents);
     }
 }

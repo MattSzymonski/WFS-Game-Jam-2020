@@ -52,16 +52,16 @@ public class Player : MonoBehaviour
         Skills();
     }
 
-    private void AdjustSpeed()
+    private void AdjustSpeed() // TODO: turned off
     {
         currentFlockPenalty = 1.0f;
-        // flock set always contains a player so subtract 1
-        // simple linear penalty to movement for now
-        if (flock.agents.Count != 0)
-        {
-            currentFlockPenalty -= (flock.agents.Count - 1) * flockPenalty;
-            currentFlockPenalty = Mathf.Max(currentFlockPenalty, 0.5f);
-        }
+        //// flock set always contains a player so subtract 1
+        //// simple linear penalty to movement for now
+        //if (flock.agents.Count != 0)
+        //{
+        //    currentFlockPenalty -= (flock.agents.Count - 1) * flockPenalty;
+        //    currentFlockPenalty = Mathf.Max(currentFlockPenalty, 0.5f);
+        //}
     }
 
     private void Move()
