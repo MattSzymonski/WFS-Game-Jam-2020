@@ -99,6 +99,8 @@ namespace MightyGamePack
         public GameObject hitBlinkEffectPanel;
         public GameObject damageEffectPanel;
 
+        public GameObject gameResult;
+
         Animator transitionPanelAnimator;
         Animator mainMenuAnimator;
         Animator mainMenuBackgroundAnimator;
@@ -153,6 +155,11 @@ namespace MightyGamePack
             
         }
 
+
+        public void SetGameResult(string value)
+        {
+             gameResult.GetComponent<Text>().text = value.ToString();
+        }
 
 
         //-------------------------------------------------------------SETUP-------------------------------------------------------------	

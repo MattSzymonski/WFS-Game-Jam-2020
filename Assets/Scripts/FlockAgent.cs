@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FlockAgent : MonoBehaviour
 {
+    public bool isValid = true;
     [Header ("Slowing down/speeding up")]
     public float distanceFromPlayerSlowDown = 3f;
     [Range(0.0f, 1.0f)]

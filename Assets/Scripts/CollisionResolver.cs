@@ -25,7 +25,7 @@ public class CollisionResolver : MonoBehaviour
         string otherTag = other.gameObject.tag;
         if (tag != otherTag) // if the tags differ, we have a collision
         {
-           // Debug.LogError("Tag: " + tag + " Other: " + otherTag);
+            //Debug.LogError("Tag: " + tag + " Other: " + otherTag);
             // if they belong to the same tag group -> player/playerFlock ignore
             if (tag.Length > otherTag.Length)
                 if (tag.StartsWith(otherTag))
@@ -55,7 +55,10 @@ public class CollisionResolver : MonoBehaviour
 
     private void Die()
     {
+        var flock = GetComponent<FlockAgent>(); // invalidate it
+        if (flock)
+            flock.isValid = false;
         // remove the object if belongs to the player
-        GameObject.Destroy(gameObject, 1.0f);
+        GameObject.Destroy(gameObject, 0.2f);
     }
 }
