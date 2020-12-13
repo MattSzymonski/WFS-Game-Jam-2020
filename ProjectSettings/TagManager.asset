@@ -4,9 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Flock
   - Bullet
   - Creep
+  - Player1
+  - Player2
+  - Player1Flock
+  - Player2Flock
   layers:
   - Default
   - TransparentFX
