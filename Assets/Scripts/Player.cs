@@ -33,8 +33,12 @@ public class Player : MonoBehaviour
     public bool mouseRayGizmo;
 
     [Header("Skills")]
+    public float singleProjectileSpeed = 7.0f;
     public float somethinglol = 1.0f;
     // Start is called before the first frame update
+
+    //gizmo stuff
+    private Vector3 furthestFlockGizmo;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -130,11 +134,42 @@ public class Player : MonoBehaviour
 
     private void Skills()
     {
-
+        if (useGamePadInput)
+        {
+            
+            // If right trigger, Fire single car
+            //Debug.Log(Input.GetAxis("Controller" + controllerNumber + " Triggers"));
+            if(!IsInvoking("ShootOneCar") && Input.GetAxis("Controller" + controllerNumber + " Triggers") == 1) // Right trigger pressed
+            {
+                InvokeRepeating("ShootOneCar", 0.0f, 0.5f);
+            }
+            if (IsInvoking("ShootOneCar") && Input.GetAxis("Controller" + controllerNumber + " Triggers") == 0)
+            {
+                CancelInvoke();
+            }
+        }
     }
+
+    private void ShootOneCar()
+    {
+        // if no members in flock, skipp
+        if (flock.agents.Count == 0)
+            return;
+        Debug.Log("Shoot!");
+        GameObject furthest = flock.getFurthestAgent();
+        FlockAgent furthestFlockAgent = furthest.GetComponent<FlockAgent>();
+        furthestFlockGizmo = furthest.transform.position;
+        Projectile projectile = furthest.AddComponent<Projectile>();
+        projectile.velocity = furthest.transform.forward * singleProjectileSpeed;
+        print(projectile.velocity);
+        flock.agents.Remove(furthestFlockAgent);
+        DestroyImmediate(furthestFlockAgent);
+    }
+
 
     private void OnDrawGizmos()
     { 
+        //Gizmos.DrawSphere(furthestFlockGizmo, 1f);
         if (mouseRayGizmo)
         {
             if(camHit.point != null)

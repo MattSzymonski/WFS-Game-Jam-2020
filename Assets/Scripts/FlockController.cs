@@ -109,4 +109,21 @@ public class FlockController : MonoBehaviour
 
         return new Tuple<List<Transform>, HashSet<FlockAgent>>(nearbyTransforms, nearbyAgents);
     }
+
+    public GameObject getFurthestAgent()
+    {
+        float distance;
+        float greatestDistance = 0;
+        FlockAgent furthest = null;
+        foreach(FlockAgent agent in agents)
+        {
+            distance = (agent.transform.position - player.transform.position).magnitude;
+            if(distance > greatestDistance)
+            {
+                furthest = agent;
+                greatestDistance = distance;
+            }
+        }
+        return furthest.gameObject;
+    }
 }
