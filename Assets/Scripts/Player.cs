@@ -107,7 +107,7 @@ public class Player : MonoBehaviour
        
         if (useGamePadInput)
         {
-            lookDirection = new Vector3(Input.GetAxis("Controller" + controllerNumber + " Right Stick Horizontal"), 0, -Input.GetAxis("Controller" + controllerNumber + " Right Stick Vertical")).normalized;
+            lookDirection = new Vector3(Input.GetAxis("Controller" + (controllerNumber + 1) + " Right Stick Horizontal"), 0, -Input.GetAxis("Controller" + (controllerNumber + 1) + " Right Stick Vertical")).normalized;
             if (lookDirection == Vector3.zero)
             {
                 if(previousLookDirection == Vector3.zero) //for fixing Zero roation quat
@@ -135,10 +135,10 @@ public class Player : MonoBehaviour
         {
             //Debug.Log("Horizontal " + Input.GetAxis("Controller" + controllerNumber + " Left Stick Horizontal"));
             //Debug.Log("Vertical " + Input.GetAxis("Controller" + controllerNumber + " Left Stick Vertical"));
-            Vector3 cyberShiftDir = new Vector3(Input.GetAxis("Controller" + controllerNumber + " Left Stick Horizontal"), 0, -Input.GetAxis("Controller" + controllerNumber + " Left Stick Vertical")).normalized;
+            Vector3 cyberShiftDir = new Vector3(Input.GetAxis("Controller" + (controllerNumber + 1) + " Left Stick Horizontal"), 0, -Input.GetAxis("Controller" + (controllerNumber + 1) + " Left Stick Vertical")).normalized;
             DebugExtension.DebugArrow(transform.position, cyberShiftDir * 10, Color.blue);
             //Debug.Log(cyberShiftDir);
-            if(Input.GetAxis("Controller" + controllerNumber + " Triggers") == -1) // Left trigger pressed
+            if(Input.GetAxis("Controller" + (controllerNumber + 1) + " Triggers") == -1) // Left trigger pressed
             {
                 // Only go further if Left button isn't held down
                 if (lastTriggerPress == -1)
@@ -165,13 +165,13 @@ public class Player : MonoBehaviour
             
             // If right trigger, Fire single car
             //Debug.Log(Input.GetAxis("Controller" + controllerNumber + " Triggers"));
-            if(Input.GetAxis("Controller" + controllerNumber + " Triggers") == 1) // Right trigger pressed
+            if(Input.GetAxis("Controller" + (controllerNumber + 1) + " Triggers") == 1) // Right trigger pressed
             {
                 lastTriggerPress = 1;
                 if(!IsInvoking("ShootOneCar"))
                     InvokeRepeating("ShootOneCar", 0.0f, 0.5f);
             }
-            if (Input.GetAxis("Controller" + controllerNumber + " Triggers") == 0)
+            if (Input.GetAxis("Controller" + (controllerNumber + 1) + " Triggers") == 0)
             {
                 lastTriggerPress = 0;
                 if(IsInvoking("ShootOneCar"))
@@ -194,7 +194,7 @@ public class Player : MonoBehaviour
     }
     private void ShootOneCar()
     {
-        Vector3 cyberShiftDir = new Vector3(Input.GetAxis("Controller" + controllerNumber + " Left Stick Horizontal"), 0, -Input.GetAxis("Controller" + controllerNumber + " Left Stick Vertical")).normalized;
+        Vector3 cyberShiftDir = new Vector3(Input.GetAxis("Controller" + (controllerNumber + 1) + " Left Stick Horizontal"), 0, -Input.GetAxis("Controller" + (controllerNumber + 1) + " Left Stick Vertical")).normalized;
         // if no members in flock, skipp
         if (flock.agents.Count == 0)
             return;
