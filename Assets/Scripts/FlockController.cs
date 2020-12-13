@@ -35,6 +35,8 @@ public class FlockController : MonoBehaviour
         // Process each other member of the flock (agent)
         foreach (FlockAgent agent in agents)
         {
+            if (!agent.isValid)
+                continue;
             HashSet<FlockAgent> agentsFound = ProcessNearby(agent);
             difference.UnionWith(agentsFound);
         }
@@ -92,6 +94,8 @@ public class FlockController : MonoBehaviour
             var creep = c.GetComponentInParent<Creep>();
             if (collAgent)
             {
+                if (!collAgent.isValid)
+                    continue;
                 nearbyTransforms.Add(c.transform);
                 nearbyAgents.Add(collAgent);
             }
@@ -99,7 +103,7 @@ public class FlockController : MonoBehaviour
             {
                 nearbyTransforms.Add(c.transform);
             }
-            else if (creep && c.CompareTag(gameObject.tag)) // add this newly found creep as a flock
+            else if (creep && !c.tag.Contains("Flock")) // add this newly found creep as a flock (if not other players flock)
             {
                 nearbyTransforms.Add(c.transform);
                 Destroy(creep);

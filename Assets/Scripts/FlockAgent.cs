@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FlockAgent : MonoBehaviour
 {
+    public bool isValid = true;
     // Start is called before the first frame update
     void Start()
     {
