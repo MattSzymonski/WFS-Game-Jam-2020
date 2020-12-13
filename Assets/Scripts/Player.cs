@@ -249,6 +249,7 @@ public class Player : MonoBehaviour
         {
             if (other.gameObject.tag == "Player2")
             {
+                mgm.audioManager.PlaySound("PlayerCrash1");
                 mgm.GameOver(3);
                 Debug.Log("Split");
                 return;
@@ -256,6 +257,7 @@ public class Player : MonoBehaviour
 
             if (other.gameObject.tag == "Player2Flock")
             {
+                mgm.audioManager.PlaySound("PlayerCrash1");
                 Die();
                 mgm.GameOver(2);
             }
@@ -265,6 +267,7 @@ public class Player : MonoBehaviour
         {
             if (other.gameObject.tag == "Player2")
             {
+                mgm.audioManager.PlaySound("PlayerCrash1");
                 mgm.GameOver(3);
                 Debug.Log("Split");
                 return;
@@ -272,6 +275,7 @@ public class Player : MonoBehaviour
 
             if (other.gameObject.tag == "Player1Flock")
             {
+                mgm.audioManager.PlaySound("PlayerCrash1");
                 Die();
                 mgm.GameOver(1);
             }
