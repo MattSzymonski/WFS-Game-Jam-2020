@@ -25,7 +25,7 @@ public class CollisionResolver : MonoBehaviour
         string otherTag = other.gameObject.tag;
         if (tag != otherTag) // if the tags differ, we have a collision
         {
-            Debug.LogError("Tag: " + tag + " Other: " + otherTag);
+           // Debug.LogError("Tag: " + tag + " Other: " + otherTag);
             // if they belong to the same tag group -> player/playerFlock ignore
             if (tag.Length > otherTag.Length)
                 if (tag.StartsWith(otherTag))
