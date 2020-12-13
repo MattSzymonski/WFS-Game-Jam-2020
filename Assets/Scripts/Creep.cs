@@ -59,8 +59,6 @@ public class Creep : MonoBehaviour
         mgm.audioManager.PlayRandomSound("Crash1", "Crash2", "Crash3", "Crash4");
         // remove the object if belongs to the player
         GameObject.Destroy(gameObject, 0.2f);
-
-
     }
 
 

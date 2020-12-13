@@ -83,7 +83,7 @@ public class MainGameManager : MightyGameManager, IMainGameManager
 
     public void GameOver(int winner)
     {
-
+       
 
         if (!debugHideUI && gameState == GameState.Playing)
         {
@@ -112,14 +112,28 @@ public class MainGameManager : MightyGameManager, IMainGameManager
 
     public void RestartGame()
     {
-        for (int i = creeps.Count - 1; i >= 0; --i)
+
+
+        GameObject ccc = GameObject.Find("Creeps");
+
+        int ttt = GameObject.Find("Creeps").transform.childCount;
+        for (int i = ttt - 1; i >= 0; --i)
         {
-            if (creeps[i])
-            {
-               // Destroy(creeps[i].gameObject);
-            }
-            creeps.RemoveAt(i);
+            Destroy(ccc.transform.GetChild(i));
         }
+
+
+        //for (int i = creeps.Count - 1; i >= 0; --i)
+        //{
+        //    if (creeps[i] != null)
+        //    {
+        //        Destroy(creeps[i].gameObject);
+        //    }
+        //    creeps.RemoveAt(i);
+        //}
+
+        creeps.Clear();
+
         player1Dead = false;
         player2Dead = false;
 
@@ -170,6 +184,7 @@ public class MainGameManager : MightyGameManager, IMainGameManager
                     isOk = true;
             }
             GameObject newCreep = Instantiate(creepPrefab, new Vector3(position.x, 0.0f, position.y), Quaternion.Euler(0.0f, Random.Range(0.0f, 360.0f), 0.0f)) as GameObject;
+            particleEffectsManager.SpawnParticleEffect(newCreep.transform.position, Quaternion.identity, 3, 0.0f, "SpawnNewCar");
             newCreep.transform.parent = GameObject.Find("Creeps").transform;
             newCreep.name = "Creep_" + creeps.Count.ToString();
             creeps.Add(newCreep.GetComponent<Creep>());
