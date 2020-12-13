@@ -60,15 +60,19 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        AdjustSpeed();
-        ChangeDirection();
-        Move();
-        Rotation(); // this will be used for finding a direction for the CYBERPUNK MIND SWITCH LOL
-        Skills();
-        moveHighlight(selected.transform.position + new Vector3(0f, -4f, 0f));
+        if (MainGameManager.mainGameManager.gameState != GameState.Playing)
+        {
+            AdjustSpeed();
+            ChangeDirection();
+            Move();
+            Rotation(); // this will be used for finding a direction for the CYBERPUNK MIND SWITCH LOL
+            Skills();
+            moveHighlight(selected.transform.position + new Vector3(0f, -4f, 0f));
 
-        if (readyToDie)
-            Die();
+
+            if (readyToDie)
+                Die();
+        }
     }
 
     private void AdjustSpeed()
@@ -179,7 +183,7 @@ public class Player : MonoBehaviour
         {
             
             // If right trigger, Fire single car
-            Debug.Log(Input.GetAxis("Controller" + (controllerNumber+1) + " Triggers"));
+           // Debug.Log(Input.GetAxis("Controller" + (controllerNumber+1) + " Triggers"));
             if(Input.GetAxis("Controller" + (controllerNumber + 1) + " Triggers") == 1) // Right trigger pressed
             {
                 lastTriggerPress = 1;
@@ -197,6 +201,7 @@ public class Player : MonoBehaviour
 
     private void ShootAllCars()
     {
+        mgm.audioManager.PlaySound("AccelMulti");
         foreach (FlockAgent agent in flock.agents)
         {
             GameObject agentGO = agent.gameObject;
@@ -209,6 +214,7 @@ public class Player : MonoBehaviour
     }
     private void ShootOneCar()
     {
+        mgm.audioManager.PlayRandomSound("AccelSingle1", "AccelSingle2");
         Vector3 cyberShiftDir = new Vector3(Input.GetAxis("Controller" + (controllerNumber + 1) + " Left Stick Horizontal"), 0, -Input.GetAxis("Controller" + (controllerNumber + 1) + " Left Stick Vertical")).normalized;
         // if no members in flock, skipp
         if (flock.agents.Count == 0)
@@ -281,7 +287,7 @@ public class Player : MonoBehaviour
 
         if (gameObject.tag == "Player2")
         {
-            if (other.gameObject.tag == "Player2")
+            if (other.gameObject.tag == "Player1")
             {
                 Camera.main.transform.parent.GetComponent<MightyGamePack.CameraShaker>().ShakeOnce(3.0f, 1f, 1f, 1.25f);
 
