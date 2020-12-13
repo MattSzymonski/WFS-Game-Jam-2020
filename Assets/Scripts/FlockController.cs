@@ -137,8 +137,8 @@ public class FlockController : MonoBehaviour
         // each one to the line, get the closest (on the side the vector is pointing to)
         float radius = (getFurthest().transform.position - player.transform.position).magnitude;
         Vector3 furtherstPointOnRadius = direction.normalized * radius + player.transform.position;
-        Debug.Log("radius " + radius);
-        Debug.Log("furthest point " + furtherstPointOnRadius);
+        //Debug.Log("radius " + radius);
+        //Debug.Log("furthest point " + furtherstPointOnRadius);
         GizmoRadius = radius;
         GizmoFurthestPoint = furtherstPointOnRadius;
 
