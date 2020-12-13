@@ -176,7 +176,7 @@ public class Player : MonoBehaviour
         {
             
             // If right trigger, Fire single car
-            //Debug.Log(Input.GetAxis("Controller" + controllerNumber + " Triggers"));
+            Debug.Log(Input.GetAxis("Controller" + (controllerNumber+1) + " Triggers"));
             if(Input.GetAxis("Controller" + (controllerNumber + 1) + " Triggers") == 1) // Right trigger pressed
             {
                 lastTriggerPress = 1;
@@ -253,15 +253,23 @@ public class Player : MonoBehaviour
             {
                 mgm.audioManager.PlaySound("PlayerCrash1");
                 mgm.GameOver(3);
+               
                 Debug.Log("Split");
+
+
+                Camera.main.transform.parent.GetComponent<MightyGamePack.CameraShaker>().ShakeOnce(3.0f, 1f, 1f, 1.25f);
+                Die();
                 return;
             }
 
             if (other.gameObject.tag == "Player2Flock")
             {
                 mgm.audioManager.PlaySound("PlayerCrash1");
-                Die();
+              
+                Camera.main.transform.parent.GetComponent<MightyGamePack.CameraShaker>().ShakeOnce(3.0f, 1f, 1f, 1.25f);
                 mgm.GameOver(2);
+                Die();
+                return;
             }
         }
 
@@ -269,17 +277,24 @@ public class Player : MonoBehaviour
         {
             if (other.gameObject.tag == "Player2")
             {
+                Camera.main.transform.parent.GetComponent<MightyGamePack.CameraShaker>().ShakeOnce(3.0f, 1f, 1f, 1.25f);
+
                 mgm.audioManager.PlaySound("PlayerCrash1");
+               
                 mgm.GameOver(3);
+                Die();
                 Debug.Log("Split");
                 return;
             }
 
             if (other.gameObject.tag == "Player1Flock")
             {
+                Camera.main.transform.parent.GetComponent<MightyGamePack.CameraShaker>().ShakeOnce(3.0f, 1f, 1f, 1.25f);
                 mgm.audioManager.PlaySound("PlayerCrash1");
-                Die();
+               
                 mgm.GameOver(1);
+                Die();
+                return;
             }
         }
 

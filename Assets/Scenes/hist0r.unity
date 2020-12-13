@@ -484,7 +484,7 @@ MonoBehaviour:
   restartGameMMToG: 1
   restartGameGOMOrPMToG: 1
   restartGameDelay: 1
-  debugHideUI: 1
+  debugHideUI: 0
   gameManager: {fileID: 0}
   UIManager: {fileID: 0}
   audioManager: {fileID: 0}
@@ -678,7 +678,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Crash1
     clip: {fileID: 8300000, guid: 2a5d0b20be22631468c3e81b720643bc, type: 3}
-    volume: 1
+    volume: 0.05
     pitch: 1
     playOnAwake: 0
     loop: 0
@@ -686,7 +686,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Crash2
     clip: {fileID: 8300000, guid: e9626cc1eb8afb249b58ac06e5727020, type: 3}
-    volume: 1
+    volume: 0.05
     pitch: 1
     playOnAwake: 0
     loop: 0
@@ -694,7 +694,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Crash3
     clip: {fileID: 8300000, guid: 9b463294addbfc3499d4f0d9adb9ce0a, type: 3}
-    volume: 1
+    volume: 0.05
     pitch: 1
     playOnAwake: 0
     loop: 0
@@ -702,7 +702,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Crash4
     clip: {fileID: 8300000, guid: 9324605017d29cd44b448e93620bb6d4, type: 3}
-    volume: 1
+    volume: 0.05
     pitch: 1
     playOnAwake: 0
     loop: 0
@@ -718,7 +718,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: PlayerCrash1
     clip: {fileID: 8300000, guid: 44ddf5db460d8764ba7647334df06511, type: 3}
-    volume: 1
+    volume: 0.15
     pitch: 1
     playOnAwake: 0
     loop: 0
