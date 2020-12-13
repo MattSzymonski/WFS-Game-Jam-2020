@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlockAgent : MonoBehaviour
+public class Projectile : MonoBehaviour
 {
+    public Vector3 velocity;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,13 +14,8 @@ public class FlockAgent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.forward = velocity;
+        transform.position += velocity * Time.deltaTime;
         
     }
-
-    public void Move(Vector3 velocity)
-    {
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(velocity, Vector3.up),  Time.deltaTime*5f);
-        transform.position += velocity * Time.deltaTime;
-    }
-
 }

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AvoidanceBehavior : IBehavior
+[CreateAssetMenu(menuName ="Flock/Behavior/Alignment")]
+public class AlignmentBehavior : IBehavior
 {
     public override Vector3 CalculateMovement(FlockAgent agent, List<Transform> nearby, FlockController controller)
     {
-        throw new System.NotImplementedException();
+        return controller.player.transform.forward;
     }
 }

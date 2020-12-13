@@ -13,10 +13,17 @@ public class FlockController : MonoBehaviour
     public float radius = 5.0f;
     public float agentSpeed = 5.0f;
 
+    public float driveFactor = 10f;
+    [Range(0.0f, 5.0f)]
+    public float avoidanceRadiusMultiplier = 0.5f;
+
+    // TODO remove placeholder vars
+    private float GizmoRadius = 0f;
+    private Vector3 GizmoFurthestPoint = Vector3.zero;
     // Start is called before the first frame update
     void Start()
     {
-        behavior = ScriptableObject.CreateInstance("AlignmentBehavior") as IBehavior;
+        //behavior = ScriptableObject.CreateInstance("AlignmentBehavior") as IBehavior;
         player = gameObject.GetComponent<Player>();
         FindFlock();
     }
@@ -46,6 +53,12 @@ public class FlockController : MonoBehaviour
 
         //Vector3 move = player.transform.position - source.transform.position;
         //move = move.normalized * agentSpeed;
+        move *= driveFactor;
+        if (move.sqrMagnitude > agentSpeed*agentSpeed)
+        {
+            move = move.normalized;
+            move *= agentSpeed;
+        }
         source.Move(move);
         return nearbyTransformsAgents.Item2;
     }
@@ -79,6 +92,7 @@ public class FlockController : MonoBehaviour
 
             // Only add to list if overlaps with agent
             var collAgent = c.GetComponentInParent<FlockAgent>();
+            var creep = c.GetComponentInParent<Creep>();
             if (collAgent)
             {
                 nearbyTransforms.Add(c.transform);
@@ -88,8 +102,72 @@ public class FlockController : MonoBehaviour
             {
                 nearbyTransforms.Add(c.transform);
             }
+            else if (creep) // add this newly found creep as a flock
+            {
+                nearbyTransforms.Add(c.transform);
+                DestroyImmediate(creep);
+                nearbyAgents.Add(c.gameObject.AddComponent<FlockAgent>());
+            }
         }
 
         return new Tuple<List<Transform>, HashSet<FlockAgent>>(nearbyTransforms, nearbyAgents);
+    }
+
+    public GameObject getFurthest()
+    {
+        float distance;
+        float greatestDistance = 0;
+        FlockAgent furthest = null;
+        foreach(FlockAgent agent in agents)
+        {
+            distance = (agent.transform.position - player.transform.position).magnitude;
+            if(distance > greatestDistance)
+            {
+                furthest = agent;
+                greatestDistance = distance;
+            }
+        }
+        return furthest.gameObject;
+    }
+
+
+    public GameObject getFurthestInDirection(Vector3 direction)
+    {
+        // Get a vector line from player in direction, get perpendicular vector from 
+        // each one to the line, get the closest (on the side the vector is pointing to)
+        float radius = (getFurthest().transform.position - player.transform.position).magnitude;
+        Vector3 furtherstPointOnRadius = direction.normalized * radius + player.transform.position;
+        Debug.Log("radius " + radius);
+        Debug.Log("furthest point " + furtherstPointOnRadius);
+        GizmoRadius = radius;
+        GizmoFurthestPoint = furtherstPointOnRadius;
+
+        float distance;
+        float smallestDistance = 0f;
+        FlockAgent furthest = null;
+        foreach(FlockAgent agent in agents)
+        {
+            if (!furthest)
+            {
+                furthest = agent;
+                smallestDistance = (agent.transform.position - furtherstPointOnRadius).magnitude;
+                continue;
+            }
+            distance = (agent.transform.position - furtherstPointOnRadius).magnitude;
+            if(distance < smallestDistance)
+            {
+                furthest = agent;
+                smallestDistance = distance;
+            }
+        }
+        return furthest.gameObject;
+    }
+    private void OnDrawGizmos()
+    {
+        if (player)
+        {
+            Gizmos.DrawWireSphere(player.transform.position, GizmoRadius);
+            Gizmos.DrawLine(player.transform.position, GizmoFurthestPoint);
+        }
     }
 }

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5374236313752433914
+--- !u!1 &6798551620824369492
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,50 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5374236313752433915}
-  - component: {fileID: -1137376050704455613}
-  - component: {fileID: 2399894527654986636}
+  - component: {fileID: 6798551620824369493}
+  - component: {fileID: 3855770134947102242}
+  - component: {fileID: 3315511074840192631}
   m_Layer: 0
-  m_Name: FlockAgent
-  m_TagString: Flock
+  m_Name: Creep
+  m_TagString: Creep
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5374236313752433915
+--- !u!4 &6798551620824369493
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5374236313752433914}
+  m_GameObject: {fileID: 6798551620824369492}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 6778438417242480774}
+  - {fileID: 5394617507234061608}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-1137376050704455613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5374236313752433914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e22fe27dc500cb48946402bbb7bfd48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!136 &2399894527654986636
+--- !u!136 &3855770134947102242
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5374236313752433914}
+  m_GameObject: {fileID: 6798551620824369492}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -59,12 +47,24 @@ CapsuleCollider:
   m_Height: 4
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 1}
---- !u!1001 &6456860794849331053
+--- !u!114 &3315511074840192631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6798551620824369492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2954e6d54d00ba40bcbf7578c4733d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &5572977451190418115
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 5374236313752433915}
+    m_TransformParent: {fileID: 6798551620824369493}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 3177a3160deb8df4290b68c054cdfc7e, type: 3}
       propertyPath: m_RootOrder
@@ -116,8 +116,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3177a3160deb8df4290b68c054cdfc7e, type: 3}
---- !u!4 &6778438417242480774 stripped
+--- !u!4 &5394617507234061608 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3177a3160deb8df4290b68c054cdfc7e, type: 3}
-  m_PrefabInstance: {fileID: 6456860794849331053}
+  m_PrefabInstance: {fileID: 5572977451190418115}
   m_PrefabAsset: {fileID: 0}
