@@ -47,10 +47,11 @@ public class Player : MonoBehaviour
     public ParticleSystem particles;
     private bool readyToDie = false;
 
-
+    private GameObject selected; 
 
     void Start()
     {
+        selected = gameObject;
         rb = GetComponent<Rigidbody>();
         flock = GetComponent<FlockController>();
 
@@ -64,6 +65,7 @@ public class Player : MonoBehaviour
         Move();
         Rotation(); // this will be used for finding a direction for the CYBERPUNK MIND SWITCH LOL
         Skills();
+        moveHighlight(selected.transform.position + new Vector3(0f, -4f, 0f));
 
         if (readyToDie)
             Die();
@@ -148,6 +150,7 @@ public class Player : MonoBehaviour
             //Debug.Log("Horizontal " + Input.GetAxis("Controller" + controllerNumber + " Left Stick Horizontal"));
             //Debug.Log("Vertical " + Input.GetAxis("Controller" + controllerNumber + " Left Stick Vertical"));
             Vector3 cyberShiftDir = new Vector3(Input.GetAxis("Controller" + (controllerNumber + 1) + " Left Stick Horizontal"), 0, -Input.GetAxis("Controller" + (controllerNumber + 1) + " Left Stick Vertical")).normalized;
+            selected = flock.getFurthestInDirection(cyberShiftDir);
             DebugExtension.DebugArrow(transform.position, cyberShiftDir * 10, Color.blue);
             //Debug.Log(cyberShiftDir);
             if(Input.GetAxis("Controller" + (controllerNumber + 1) + " Triggers") == -1) // Left trigger pressed
@@ -217,6 +220,11 @@ public class Player : MonoBehaviour
         projectile.velocity = furthest.transform.forward * singleProjectileSpeed;
         flock.agents.Remove(furthestFlockAgent);
         DestroyImmediate(furthestFlockAgent);
+    }
+
+    private void moveHighlight(Vector3 position)
+    {
+        transform.Find("SelectedHighlight").transform.position = position;
     }
 
 
