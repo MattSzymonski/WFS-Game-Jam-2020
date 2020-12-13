@@ -16,7 +16,6 @@ public class FlockController : MonoBehaviour
     public float driveFactor = 10f;
     [Range(0.0f, 5.0f)]
     public float avoidanceRadiusMultiplier = 0.5f;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -99,7 +98,7 @@ public class FlockController : MonoBehaviour
             {
                 nearbyTransforms.Add(c.transform);
             }
-            else if (creep && c.CompareTag(gameObject.tag)) // add this newly found creep as a flock
+            else if (creep) // add this newly found creep as a flock
             {
                 nearbyTransforms.Add(c.transform);
                 Destroy(creep);
@@ -111,6 +110,11 @@ public class FlockController : MonoBehaviour
         return new Tuple<List<Transform>, HashSet<FlockAgent>>(nearbyTransforms, nearbyAgents);
     }
 
+    private float getDistanceToPlayer(FlockAgent agent)
+    {
+        return (agent.transform.position - player.transform.position).magnitude;
+    }
+
     public GameObject getFurthest()
     {
         float distance;
@@ -118,7 +122,7 @@ public class FlockController : MonoBehaviour
         FlockAgent furthest = null;
         foreach(FlockAgent agent in agents)
         {
-            distance = (agent.transform.position - player.transform.position).magnitude;
+            distance = getDistanceToPlayer(agent); 
             if(distance > greatestDistance)
             {
                 furthest = agent;
@@ -131,8 +135,7 @@ public class FlockController : MonoBehaviour
 
     public GameObject getFurthestInDirection(Vector3 direction)
     {
-        // Get a vector line from player in direction, get perpendicular vector from 
-        // each one to the line, get the closest (on the side the vector is pointing to)
+        // Get furthest point on max radius, select closest to the furthest point in direction
         float radius = (getFurthest().transform.position - player.transform.position).magnitude;
         Vector3 furtherstPointOnRadius = direction.normalized * radius + player.transform.position;
         //Debug.Log("radius " + radius);
