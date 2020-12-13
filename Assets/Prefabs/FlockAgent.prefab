@@ -52,6 +52,7 @@ MonoBehaviour:
   slowDownRatio: 0.4
   distanceFromPlayerSpeedUp: 8
   speedUpRatio: 0.6
+  controller: {fileID: 0}
 --- !u!136 &2399894527654986636
 CapsuleCollider:
   m_ObjectHideFlags: 0
