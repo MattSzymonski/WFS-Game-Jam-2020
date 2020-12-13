@@ -670,10 +670,10 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: GameStart
     clip: {fileID: 8300000, guid: e5a33728c53649344be86972dcda16b3, type: 3}
-    volume: 0.6
+    volume: 0.2
     pitch: 1
-    playOnAwake: 0
-    loop: 0
+    playOnAwake: 1
+    loop: 1
     soundType: 1
     source: {fileID: 0}
   - name: Crash1
@@ -749,11 +749,11 @@ MonoBehaviour:
     soundType: 0
     source: {fileID: 0}
   - name: WinMusic
-    clip: {fileID: 8300000, guid: d2cade01db7fbde429c1c37b361be606, type: 3}
-    volume: 0
+    clip: {fileID: 8300000, guid: e5a33728c53649344be86972dcda16b3, type: 3}
+    volume: 0.05
     pitch: 1
-    playOnAwake: 1
-    loop: 1
+    playOnAwake: 0
+    loop: 0
     soundType: 0
     source: {fileID: 0}
   musicMixerGroup: {fileID: -7923465186692303526, guid: f5091cc29b1ca8f4586011abf0380ac6, type: 2}
