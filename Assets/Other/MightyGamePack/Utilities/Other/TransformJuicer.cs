@@ -16,7 +16,7 @@ TODO:
    
 */
 
-
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,7 +29,8 @@ namespace MightyGamePack
     {
         Position,
         Rotation,
-        Scale
+        Scale,
+        UIScale,
     };
 
     public class TransformJuicer : MonoBehaviour
@@ -80,6 +81,12 @@ namespace MightyGamePack
             {
                 startScale = transform.localScale;
             }
+
+            if (animatedElement == AnimatedElement.UIScale)
+            {
+                startScale = GetComponent<RectTransform>().localScale;
+            }
+
         }
 
         void Evaluate()
@@ -114,6 +121,9 @@ namespace MightyGamePack
                         break;
                     case AnimatedElement.Scale:
                         transform.localScale = startScale + animationDirectionMultiplier * curveValue;
+                        break;
+                    case AnimatedElement.UIScale:
+                        GetComponent<RectTransform>().localScale = startScale + animationDirectionMultiplier * curveValue;
                         break;
                 }
             }

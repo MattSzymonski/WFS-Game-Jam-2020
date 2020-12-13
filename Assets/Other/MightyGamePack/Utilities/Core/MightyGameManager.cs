@@ -104,7 +104,7 @@ namespace MightyGamePack
     public interface IMainGameManager
     {
         void PlayGame();
-        void GameOver();
+        void GameOver(int winner);
         void PauseGame();
         void UnpauseGame();
         void OpenOptions();

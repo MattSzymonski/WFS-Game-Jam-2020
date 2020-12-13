@@ -162,8 +162,8 @@ namespace Photon.Compression.Internal
                 return;
             }
 
-            Debug.Log("Rescanning assembly for [PackObject] and [SyncVar] changes. " +
-                "If you are not using Simple SyncVars, this scan can be disabled by un-checking 'Auto Generate' in PackObjectSettings.");
+            //Debug.Log("Rescanning assembly for [PackObject] and [SyncVar] changes. " +
+            //    "If you are not using Simple SyncVars, this scan can be disabled by un-checking 'Auto Generate' in PackObjectSettings.");
             rescanPending = true;
 
         }
@@ -303,9 +303,9 @@ namespace Photon.Compression.Internal
             }
 
             watch0.Stop();
-            Debug.Log("Rebuilding PackObject Codegen - took <i>" + watch0.ElapsedMilliseconds + "ms</i>. "
-                + (haschanged ? "Changes where found." : "No changes found.")
-                + "\nNOTE: Automatic PackObject codegen can be disabled in PackObjectSettings.");
+            //Debug.Log("Rebuilding PackObject Codegen - took <i>" + watch0.ElapsedMilliseconds + "ms</i>. "
+            //    + (haschanged ? "Changes where found." : "No changes found.")
+            //    + "\nNOTE: Automatic PackObject codegen can be disabled in PackObjectSettings.");
         }
 
 
