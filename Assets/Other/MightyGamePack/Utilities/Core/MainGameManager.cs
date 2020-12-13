@@ -52,7 +52,7 @@ public class MainGameManager : MightyGameManager, IMainGameManager
         player1.GetComponent<Player>().controllerNumber = 0;
         duelCamera.player1 = player1;
         player1.GetComponent<Player>().mgm = this;
-
+        this.player1 = player1;
 
         position = spawnerPlayer2.transform.position;
         GameObject player2 = Instantiate(player2Prefab, position, Quaternion.identity) as GameObject;
@@ -60,7 +60,9 @@ public class MainGameManager : MightyGameManager, IMainGameManager
         player2.GetComponent<Player>().controllerNumber = 1;
         duelCamera.player2 = player2;
         player2.GetComponent<Player>().mgm = this;
+        this.player2 = player2;
 
+        spawnCreepsTimer = this.timersManager.CreateTimer("SpawnCreepsTimer", creepSpawnInterval, 1f, false, false);
     }
 
     public void Update()
@@ -80,6 +82,8 @@ public class MainGameManager : MightyGameManager, IMainGameManager
 
     public void GameOver(int winner)
     {
+
+
         if (!debugHideUI && gameState == GameState.Playing)
         {
             UIManager.GameOver();
@@ -174,7 +178,7 @@ public class MainGameManager : MightyGameManager, IMainGameManager
 
     void SpawnCreeps()
     { 
-        spawnCreepsTimer = this.timersManager.CreateTimer("SpawnCreepsTimer", creepSpawnInterval, 1f, false, false);
+       
         //myTimer.PlayTimer();
 
         if (spawnCreepsTimer.finished)
@@ -190,11 +194,12 @@ public class MainGameManager : MightyGameManager, IMainGameManager
                         isOk = true;
                 }
                 GameObject newCreep = Instantiate(creepPrefab, new Vector3(position.x, 0.0f, position.y), Quaternion.Euler(0.0f, Random.Range(0.0f, 360.0f), 0.0f)) as GameObject;
+                particleEffectsManager.SpawnParticleEffect(newCreep.transform.position, Quaternion.identity, 3, 0.0f, "SpawnNewCar");
                 newCreep.transform.parent = GameObject.Find("Creeps").transform;
                 newCreep.name = "Creep_" + creeps.Count.ToString();
                 creeps.Add(newCreep.GetComponent<Creep>());
 
-                particleEffectsManager.SpawnParticleEffect(newCreep.transform.position, Quaternion.identity, 3, 0.0f, "SpawnNewCar");
+                
                 spawnCreepsTimer.RestartTimer();
             }
           

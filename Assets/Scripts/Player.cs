@@ -250,6 +250,7 @@ public class Player : MonoBehaviour
             if (other.gameObject.tag == "Player2")
             {
                 mgm.GameOver(3);
+                Debug.Log("Split");
                 return;
             }
 
@@ -265,6 +266,7 @@ public class Player : MonoBehaviour
             if (other.gameObject.tag == "Player2")
             {
                 mgm.GameOver(3);
+                Debug.Log("Split");
                 return;
             }
 

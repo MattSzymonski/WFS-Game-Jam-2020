@@ -53,7 +53,7 @@ MonoBehaviour:
   useMouseAndKeyboardInput: 0
   useGamePadInput: 1
   controllerNumber: 0
-  movementSpeed: 20
+  movementSpeed: 5
   movementSmoothing: 0.05
   flockPenalty: 0.05
   mouseTargetLayerName: 
