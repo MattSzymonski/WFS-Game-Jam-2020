@@ -5,7 +5,7 @@ using UnityEngine;
 public class Creep : MonoBehaviour
 {
     // This is non-flocking creep (neutral behavior)
-    MainGameManager mgm;
+    public MainGameManager mgm;
     public float speed = 2.0f;
     public float radialSpeed = 0.5f;
     // Start is called before the first frame update
@@ -60,6 +60,8 @@ public class Creep : MonoBehaviour
         var flock = GetComponent<FlockAgent>(); // invalidate it
         if (flock)
             flock.isValid = false;
+
+        mgm.audioManager.PlayRandomSound("Crash1", "Crash2", "Crash3", "Crash4");
         // remove the object if belongs to the player
         GameObject.Destroy(gameObject, 0.2f);
 

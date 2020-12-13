@@ -107,7 +107,18 @@ public class FlockController : MonoBehaviour
                 nearbyTransforms.Add(c.transform);
                 Destroy(creep);
                 c.tag = gameObject.tag + "Flock";
+
+                if(gameObject.tag == "Player1")
+                {
+                    c.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material.SetColor("_BaseColor", Color.red);
+                }
+                if (gameObject.tag == "Player2")
+                {
+                    c.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material.SetColor("_BaseColor", Color.blue);
+                }
+
                 nearbyAgents.Add(c.gameObject.AddComponent<FlockAgent>());
+
             }
         }
 
