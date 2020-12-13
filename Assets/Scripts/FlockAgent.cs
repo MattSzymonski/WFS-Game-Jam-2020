@@ -28,7 +28,7 @@ public class FlockAgent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(MainGameManager.mainGameManager.gameState != GameState.Playing)
+        if(MainGameManager.mainGameManager.gameState == GameState.Playing)
         {
             if (isSpedUp || isSlowedDown)
             {

@@ -800,7 +800,7 @@ namespace MightyGamePack
             {
                 scoreInGameCounterAnimator.SetBool("Opened", true);
             }
-
+            Debug.Log("xxxxxxxxxxxxxxxxxxxxxxxxxx1");
             gameManager.SetGameState(GameState.Playing);
             mainGameManager.PlayGame();
         }
@@ -855,7 +855,7 @@ namespace MightyGamePack
                 scoreInGameCounterAnimator.SetBool("Opened", true);
             }
 
-
+            Debug.Log("xxxxxxxxxxxxxxxxxxxxxxxxxx2");
             gameManager.SetGameState(GameState.Playing);
             mainGameManager.UnpauseGame();
         }
@@ -1088,6 +1088,7 @@ namespace MightyGamePack
             {
                 scoreInGameCounterAnimator.SetBool("Opened", true);
             }
+            Debug.Log("xxxxxxxxxxxxxxxxxxxxxxxxxx3");
             gameManager.SetGameState(GameState.Playing);
             ToggleUIInputBlock(false);
         }

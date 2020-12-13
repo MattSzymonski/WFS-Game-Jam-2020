@@ -672,8 +672,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: e5a33728c53649344be86972dcda16b3, type: 3}
     volume: 0.6
     pitch: 1
-    playOnAwake: 1
-    loop: 1
+    playOnAwake: 0
+    loop: 0
     soundType: 1
     source: {fileID: 0}
   - name: Crash1
@@ -749,10 +749,10 @@ MonoBehaviour:
     soundType: 0
     source: {fileID: 0}
   - name: WinMusic
-    clip: {fileID: 8300000, guid: 51504c1f49b36414daf88045244213d9, type: 3}
-    volume: 0.6
+    clip: {fileID: 8300000, guid: d2cade01db7fbde429c1c37b361be606, type: 3}
+    volume: 0
     pitch: 1
-    playOnAwake: 0
+    playOnAwake: 1
     loop: 1
     soundType: 0
     source: {fileID: 0}
