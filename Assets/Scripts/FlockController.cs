@@ -13,13 +13,14 @@ public class FlockController : MonoBehaviour
     public float radius = 5.0f;
     public float agentSpeed = 5.0f;
 
+    public float driveFactor = 10f;
     [Range(0.0f, 5.0f)]
     public float avoidanceRadiusMultiplier = 0.5f;
 
     // Start is called before the first frame update
     void Start()
     {
-        behavior = ScriptableObject.CreateInstance("AlignmentBehavior") as IBehavior;
+        //behavior = ScriptableObject.CreateInstance("AlignmentBehavior") as IBehavior;
         player = gameObject.GetComponent<Player>();
         FindFlock();
     }
@@ -49,6 +50,7 @@ public class FlockController : MonoBehaviour
 
         //Vector3 move = player.transform.position - source.transform.position;
         //move = move.normalized * agentSpeed;
+        move *= driveFactor;
         if (move.sqrMagnitude > agentSpeed*agentSpeed)
         {
             move = move.normalized;

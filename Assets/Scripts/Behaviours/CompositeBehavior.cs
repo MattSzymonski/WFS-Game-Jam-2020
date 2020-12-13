@@ -25,6 +25,8 @@ public class CompositeBehavior : IBehavior
             if (componentMove == Vector3.zero)
                 continue;
 
+            //Debug.Log(behaviors[i]);
+            //Debug.Log(componentMove.sqrMagnitude);
             if (componentMove.sqrMagnitude > weights[i]*weights[i])
             {
                 componentMove = componentMove.normalized * weights[i];
