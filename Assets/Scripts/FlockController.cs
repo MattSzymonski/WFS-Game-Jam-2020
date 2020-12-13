@@ -17,9 +17,6 @@ public class FlockController : MonoBehaviour
     [Range(0.0f, 5.0f)]
     public float avoidanceRadiusMultiplier = 0.5f;
 
-    // TODO remove placeholder vars
-    private float GizmoRadius = 0f;
-    private Vector3 GizmoFurthestPoint = Vector3.zero;
     // Start is called before the first frame update
     void Start()
     {
@@ -139,8 +136,6 @@ public class FlockController : MonoBehaviour
         Vector3 furtherstPointOnRadius = direction.normalized * radius + player.transform.position;
         //Debug.Log("radius " + radius);
         //Debug.Log("furthest point " + furtherstPointOnRadius);
-        GizmoRadius = radius;
-        GizmoFurthestPoint = furtherstPointOnRadius;
 
         float distance;
         float smallestDistance = 0f;
@@ -161,13 +156,5 @@ public class FlockController : MonoBehaviour
             }
         }
         return furthest.gameObject;
-    }
-    private void OnDrawGizmos()
-    {
-        if (player)
-        {
-            Gizmos.DrawWireSphere(player.transform.position, GizmoRadius);
-            Gizmos.DrawLine(player.transform.position, GizmoFurthestPoint);
-        }
     }
 }

@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
     [Header("Skills")]
     public float singleProjectileSpeed = 7.0f;
     public float somethinglol = 1.0f;
+    private int lastTriggerPress = 0; // -1 is Left Trigger, 1 is Right, 0 is None
     // Start is called before the first frame update
 
     //gizmo stuff
@@ -137,13 +138,23 @@ public class Player : MonoBehaviour
             Vector3 cyberShiftDir = new Vector3(Input.GetAxis("Controller" + controllerNumber + " Left Stick Horizontal"), 0, -Input.GetAxis("Controller" + controllerNumber + " Left Stick Vertical")).normalized;
             DebugExtension.DebugArrow(transform.position, cyberShiftDir * 10, Color.blue);
             //Debug.Log(cyberShiftDir);
-            if (flock.agents.Count == 0)
+            if(Input.GetAxis("Controller" + controllerNumber + " Triggers") == -1) // Left trigger pressed
             {
-                return;
-            }
-            GameObject furthestInDir = flock.getFurthestInDirection(cyberShiftDir);
-            furthestFlockGizmo = furthestInDir.transform.position;
+                // Only go further if Left button isn't held down
+                if (lastTriggerPress == -1)
+                    return;
+                lastTriggerPress = -1;
+                if (flock.agents.Count == 0)
+                    return;
+                GameObject furthestInDir = flock.getFurthestInDirection(cyberShiftDir);
+                furthestFlockGizmo = furthestInDir.transform.position;
+                // Switcharoo
+                Vector3 currentPos = transform.position;
+                transform.position = furthestInDir.transform.position;
+                furthestInDir.transform.position = currentPos;
 
+                ShootAllCars();
+            }
         }
     }
 
@@ -154,17 +165,33 @@ public class Player : MonoBehaviour
             
             // If right trigger, Fire single car
             //Debug.Log(Input.GetAxis("Controller" + controllerNumber + " Triggers"));
-            if(!IsInvoking("ShootOneCar") && Input.GetAxis("Controller" + controllerNumber + " Triggers") == 1) // Right trigger pressed
+            if(Input.GetAxis("Controller" + controllerNumber + " Triggers") == 1) // Right trigger pressed
             {
-                InvokeRepeating("ShootOneCar", 0.0f, 0.5f);
+                lastTriggerPress = 1;
+                if(!IsInvoking("ShootOneCar"))
+                    InvokeRepeating("ShootOneCar", 0.0f, 0.5f);
             }
-            if (IsInvoking("ShootOneCar") && Input.GetAxis("Controller" + controllerNumber + " Triggers") == 0)
+            if (Input.GetAxis("Controller" + controllerNumber + " Triggers") == 0)
             {
-                CancelInvoke();
+                lastTriggerPress = 0;
+                if(IsInvoking("ShootOneCar"))
+                    CancelInvoke();
             }
         }
     }
 
+    private void ShootAllCars()
+    {
+        foreach (FlockAgent agent in flock.agents)
+        {
+            GameObject agentGO = agent.gameObject;
+            //furthestFlockGizmo = furthest.transform.position;
+            Projectile projectile = agentGO.AddComponent<Projectile>();
+            projectile.velocity = agentGO.transform.forward * singleProjectileSpeed;
+            DestroyImmediate(agent);
+        }
+        flock.agents.Clear();
+    }
     private void ShootOneCar()
     {
         Vector3 cyberShiftDir = new Vector3(Input.GetAxis("Controller" + controllerNumber + " Left Stick Horizontal"), 0, -Input.GetAxis("Controller" + controllerNumber + " Left Stick Vertical")).normalized;
@@ -176,7 +203,6 @@ public class Player : MonoBehaviour
         //furthestFlockGizmo = furthest.transform.position;
         Projectile projectile = furthest.AddComponent<Projectile>();
         projectile.velocity = furthest.transform.forward * singleProjectileSpeed;
-        print(projectile.velocity);
         flock.agents.Remove(furthestFlockAgent);
         DestroyImmediate(furthestFlockAgent);
     }
