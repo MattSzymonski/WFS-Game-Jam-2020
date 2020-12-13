@@ -368,6 +368,8 @@ public class Player : MonoBehaviour
         var flock = GetComponent<FlockAgent>(); // invalidate it
         if (flock)
             flock.isValid = false;
+
+        
         // remove the object if belongs to the player
         GameObject.Destroy(gameObject, 0.2f);
     }

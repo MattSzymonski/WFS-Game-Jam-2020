@@ -745,7 +745,7 @@ namespace MightyGamePack
                     mainMenuAnimator.SetBool("Opened", false);
                    // yield return new WaitForSeconds(GetAnimationFromAnimator(mainMenuAnimator, GetAnimationNameFromUIIndex("MainMenuClose")).length);
                     transitionPanelAnimator.SetBool("Opened", true);
-                    yield return new WaitForSeconds(GetAnimationFromAnimator(transitionPanelAnimator, GetAnimationNameFromUIIndex("TransitionPanelOpen")).length);
+                    yield return new WaitForSeconds(GetAnimationFromAnimator(transitionPanelAnimator, GetAnimationNameFromUIIndex("TransitionPanelOpen")).length + 0.5f);
                     if (gameManager.restartGameMMToG)
                     {
                         mainGameManager.RestartGame();
@@ -977,6 +977,11 @@ namespace MightyGamePack
 
                     yield return new WaitForSeconds(transitionTime);
 
+                    mainMenuBackgroundAnimator.SetBool("Opened", true);
+                    yield return new WaitForSeconds(GetAnimationFromAnimator(mainMenuBackgroundAnimator, GetAnimationNameFromUIIndex("MainMenuBackgroundOpen")).length);
+                    mainMenuAnimator.SetBool("Opened", true);
+                    gameManager.SetGameState(GameState.MainMenu);
+
                     transitionPanelAnimator.SetBool("Opened", false);
                     yield return new WaitForSeconds(GetAnimationFromAnimator(transitionPanelAnimator, GetAnimationNameFromUIIndex("TransitionPanelClose")).length);
                 }
@@ -985,10 +990,10 @@ namespace MightyGamePack
                     yield return new WaitForSeconds(GetAnimationFromAnimator(gameOverMenuAnimator, GetAnimationNameFromUIIndex("GameOverMenuClose")).length);
                 }
 
-                mainMenuBackgroundAnimator.SetBool("Opened", true);
-                yield return new WaitForSeconds(GetAnimationFromAnimator(mainMenuBackgroundAnimator, GetAnimationNameFromUIIndex("MainMenuBackgroundOpen")).length);
-                mainMenuAnimator.SetBool("Opened", true);
-                gameManager.SetGameState(GameState.MainMenu);
+               
+               
+              
+              
                 yield return new WaitForSeconds(GetAnimationFromAnimator(mainMenuAnimator, GetAnimationNameFromUIIndex("MainMenuOpen")).length);
                 mainGameManager.BackToMainMenu();
             }

@@ -427,7 +427,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 32eba3a117bb02a409f733b62288b369, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2e275791cb5143b4eb8d6e020d80a093, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1390,7 +1390,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 832972370032666266, guid: eb6e1e9f94fcbc5408e03140be5a6ae0, type: 3}
       propertyPath: m_Color.a
-      value: 1
+      value: 0.9019608
       objectReference: {fileID: 0}
     - target: {fileID: 1093616189233101703, guid: eb6e1e9f94fcbc5408e03140be5a6ae0, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1410,7 +1410,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1414008717735787865, guid: eb6e1e9f94fcbc5408e03140be5a6ae0, type: 3}
       propertyPath: m_Color.a
-      value: 1
+      value: 0.9019608
       objectReference: {fileID: 0}
     - target: {fileID: 1936310686611883254, guid: eb6e1e9f94fcbc5408e03140be5a6ae0, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1534,6 +1534,14 @@ PrefabInstance:
       objectReference: {fileID: 1740876941}
     - target: {fileID: 3847232349206753755, guid: eb6e1e9f94fcbc5408e03140be5a6ae0, type: 3}
       propertyPath: gameJamLogo
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3847232349206753755, guid: eb6e1e9f94fcbc5408e03140be5a6ae0, type: 3}
+      propertyPath: transitionTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3847232349206753755, guid: eb6e1e9f94fcbc5408e03140be5a6ae0, type: 3}
+      propertyPath: closeMMBeforeTransitionToG
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3847232349206753756, guid: eb6e1e9f94fcbc5408e03140be5a6ae0, type: 3}
